@@ -6,7 +6,7 @@ using System.Net.Sockets;
 
 namespace EventBus.RabbitMQ
 {
-    public class RabbitMQPersistenceConnection : IDisposable
+    public class RabbitMQPersistentConnection : IDisposable
     {
         private readonly IConnectionFactory connectionFactory;
         private readonly int retryCount;
@@ -14,7 +14,7 @@ namespace EventBus.RabbitMQ
         private object lock_object = new object();
         private bool _disposed;
 
-        public RabbitMQPersistenceConnection(IConnectionFactory connectionFactory, int retryCount = 5)
+        public RabbitMQPersistentConnection(IConnectionFactory connectionFactory, int retryCount = 5)
         {
             this.connectionFactory = connectionFactory;
             this.retryCount = retryCount;

@@ -12,7 +12,7 @@ namespace EventBus.RabbitMQ
 {
     public class EventBusRabbitMQ : BaseEventBus
     {
-        RabbitMQPersistenceConnection persistentConnection;
+        RabbitMQPersistentConnection persistentConnection;
         private readonly IConnectionFactory connectionFactory;
         private readonly IModel consumerChannel;
 
@@ -34,7 +34,7 @@ namespace EventBus.RabbitMQ
             else
                 connectionFactory = new ConnectionFactory();
 
-            persistentConnection = new RabbitMQPersistenceConnection(connectionFactory, eventBusConfig.ConnectionRetryCount);
+            persistentConnection = new RabbitMQPersistentConnection(connectionFactory, eventBusConfig.ConnectionRetryCount);
             consumerChannel = CreateConsumerChannel();
             SubsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
