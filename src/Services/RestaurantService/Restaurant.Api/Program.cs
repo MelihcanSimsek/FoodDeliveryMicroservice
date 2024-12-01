@@ -1,9 +1,7 @@
-using Identity.Infrastructure;
-using Identity.Persistence;
-using Identity.Application;
-using Identity.Api.Registrations;
-using Identity.Application.Exceptions;
-using Microsoft.OpenApi.Models;
+using Restaurant.Application;
+using Restaurant.Persistence;
+using Restaurant.Api.Registrations;
+using Restaurant.Application.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,15 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-builder.Services.AddPersistenceRegistration(builder.Configuration);
-builder.Services.AddInfrastructureRegistration(builder.Configuration);
 builder.Services.AddApplicationRegistration();
+builder.Services.AddPersistenceRegistration(builder.Configuration);
+
 builder.Services.AddAuthenticationRegistration(builder.Configuration);
 builder.Services.AddSwaggerRegistration();
-
-
-
 
 var app = builder.Build();
 
@@ -32,10 +28,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpsRedirection();
 app.ConfigureCustomExceptionMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

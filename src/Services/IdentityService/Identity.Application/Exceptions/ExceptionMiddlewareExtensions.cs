@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Identity.Application.Exceptions
 {
-    public static class ExcepitonMiddlewareExtensions
+    public static class ExceptionMiddlewareExtensions
     {
         public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
         {

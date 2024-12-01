@@ -22,7 +22,7 @@ namespace EventBus.RabbitMQ
 
         public bool isConnected => connection is not null && connection.IsOpen;
 
-        public IModel CreateModel() => connection.CreateModel(); 
+        public IModel CreateModel() => connection.CreateModel();
 
         public void Dispose()
         {
@@ -32,7 +32,7 @@ namespace EventBus.RabbitMQ
 
         public bool TryConnect()
         {
-            lock(lock_object)
+            lock (lock_object)
             {
                 var policy = Policy.Handle<SocketException>()
                     .Or<BrokerUnreachableException>()
@@ -46,7 +46,7 @@ namespace EventBus.RabbitMQ
                     connection = connectionFactory.CreateConnection();
                 });
 
-                if(isConnected)
+                if (isConnected)
                 {
                     connection.ConnectionShutdown += Connection_ConnectionShutdown;
                     connection.CallbackException += Connection_CallbackException;
