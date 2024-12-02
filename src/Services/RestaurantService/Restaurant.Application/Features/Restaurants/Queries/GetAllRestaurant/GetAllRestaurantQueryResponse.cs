@@ -8,6 +8,7 @@ namespace Restaurant.Application.Features.Restaurants.Queries.GetAllRestaurant
 {
     public class GetAllRestaurantQueryResponse
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
     }

@@ -9,8 +9,9 @@ namespace Menu.Application.Features.Liquids.Commands.DeleteLiquid
     {
         public Guid Id { get; set; }
         public Guid RestaurantId { get; set; }
+        public Guid BranchId { get; set; }
         public string[] Roles => ["delivery.owner.restaurant"];
-        public string CacheRemoveKey => $"Liquid_{RestaurantId}_*";
+        public string CacheRemoveKey => $"Liquid_{RestaurantId}_{BranchId}_*";
 
     }
 }

@@ -25,8 +25,7 @@ namespace Restaurant.Application.Features.Branches.Commands.BranchDelete
 
         public async Task<Unit> Handle(BranchDeleteCommandRequest request, CancellationToken cancellationToken)
         {
-            Guid restaurantId = httpContextAccessor.HttpContext.User.GetUserId();
-            Branch? branch = await unitOfWork.GetReadRepository<Branch>().GetAsync(p => p.Id == request.Id && p.RestaurantId == restaurantId);
+            Branch? branch = await unitOfWork.GetReadRepository<Branch>().GetAsync(p => p.Id == request.Id);
 
             await branchRules.ShouldBranchExists(branch);
 

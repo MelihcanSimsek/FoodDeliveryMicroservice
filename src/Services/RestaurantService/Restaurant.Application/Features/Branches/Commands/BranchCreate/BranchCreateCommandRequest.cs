@@ -10,6 +10,7 @@ namespace Restaurant.Application.Features.Branches.Commands.BranchCreate
 {
     public class BranchCreateCommandRequest : IRequest<Unit>, ISecuredRequest
     {
+        public Guid RestaurantId { get; set; }
         public string City { get; set; }
         public string District { get; set; }
         public string Address { get; set; }

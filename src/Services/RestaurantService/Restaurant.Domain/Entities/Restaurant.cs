@@ -9,6 +9,7 @@ namespace Restaurant.Domain.Entities
 {
     public class Restaurant : EntityBase
     {
+        public Guid UserId { get; set; }
         public string Name { get; set; }
         public string EmailContact { get; set; }
         public string PhoneContact { get; set; }

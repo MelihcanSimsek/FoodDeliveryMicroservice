@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Restaurant.Application.Bases;
+using Restaurant.Application.Extensions;
 using Restaurant.Application.Features.Restaurants.Rules;
 using Restaurant.Application.Interfaces.Mapper;
 using Restaurant.Application.Interfaces.UnitOfWorks;
@@ -22,12 +23,12 @@ namespace Restaurant.Application.Features.Restaurants.Commands.RestaurantCreate
 
         public async Task<Unit> Handle(RestaurantCreateCommandRequest request, CancellationToken cancellationToken)
         {
-            var checkRestaurant = await unitOfWork.GetReadRepository<Restaurant.Domain.Entities.Restaurant>().GetAsync(p => p.Name == request.Name);
+            var checkRestaurant = await unitOfWork.GetReadRepository<Restaurant.Domain.Entities.Restaurant>().GetAsync(p => p.Name == request.Name && p.UserId == httpContextAccessor.HttpContext.User.GetUserId());
 
             await restaurantRules.ShouldRestaurantNameCanNotBeDuplicated(checkRestaurant);
 
             var restaurant = mapper.Map<Restaurant.Domain.Entities.Restaurant, RestaurantCreateCommandRequest>(request);
-
+            restaurant.UserId = httpContextAccessor.HttpContext.User.GetUserId();
             await unitOfWork.GetWriteRepository<Restaurant.Domain.Entities.Restaurant>().AddAsync(restaurant);
             await unitOfWork.SaveAsync();
 

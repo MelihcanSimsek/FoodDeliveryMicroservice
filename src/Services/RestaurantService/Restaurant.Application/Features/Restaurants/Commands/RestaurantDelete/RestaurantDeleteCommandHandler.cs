@@ -25,8 +25,8 @@ namespace Restaurant.Application.Features.Restaurants.Commands.RestaurantDelete
 
         public async Task<Unit> Handle(RestaurantDeleteCommandRequest request, CancellationToken cancellationToken)
         {
-            Guid restaurantId = httpContextAccessor.HttpContext.User.GetUserId();
-            var restaurant = await unitOfWork.GetReadRepository<Restaurant.Domain.Entities.Restaurant>().GetAsync(p => p.Id == restaurantId && !p.IsDeleted);
+            Guid userId = httpContextAccessor.HttpContext.User.GetUserId();
+            var restaurant = await unitOfWork.GetReadRepository<Restaurant.Domain.Entities.Restaurant>().GetAsync(p => p.UserId == userId && !p.IsDeleted);
 
             await restaurantRules.ShouldRestaurantExists(restaurant);
             restaurant.IsDeleted = true;

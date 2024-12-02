@@ -11,10 +11,11 @@ namespace Menu.Application.Features.Liquids.Queries.GetAllLiquid
     {
         public Guid Id { get; set; }
         public DateTime CreationDate { get; set; } = DateTime.Now;
-        public bool IsDeleted { get; set; } = false;
-        public Guid RestaurantId { get; set; } = Guid.Empty;
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public bool IsDeleted { get; set; } 
+        public Guid RestaurantId { get; set; } 
+        public Guid BranchId { get; set; } 
+        public string Name { get; set; } 
+        public string Description { get; set; } 
         public Decimal Price { get; set; }
         public string? ImageUrl { get; set; }
         public int Milliliter { get; set; }

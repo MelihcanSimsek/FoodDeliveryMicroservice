@@ -22,7 +22,7 @@ namespace Menu.Application.Features.Liquids.Queries.GetAllLiquid
 
         public async Task<IList<GetAllLiquidQueryResponse>> Handle(GetAllLiquidQueryRequest request, CancellationToken cancellationToken)
         {
-            IList<Liquid> liquidList = await liquidRepository.GetAllByPagingAsync(predicate:p=>p.RestaurantId == request.RestaurantId,
+            IList<Liquid> liquidList = await liquidRepository.GetAllByPagingAsync(predicate:p=>p.RestaurantId == request.RestaurantId && p.BranchId == request.BranchId,
                 currentPage:request.Page,pageSize:request.Size);
 
             var response = mapper.Map<GetAllLiquidQueryResponse, Liquid>(liquidList);

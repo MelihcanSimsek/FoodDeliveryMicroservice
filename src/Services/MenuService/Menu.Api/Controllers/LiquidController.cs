@@ -41,9 +41,9 @@ namespace Menu.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] int page,[FromQuery] int size,[FromQuery] Guid restaurantId)
+        public async Task<IActionResult> GetAll([FromQuery] int page,[FromQuery] int size,[FromQuery] Guid restaurantId, [FromQuery] Guid branchId)
         {
-            var response = await mediator.Send(new GetAllLiquidQueryRequest() { Page = page, Size = size, RestaurantId = restaurantId });
+            var response = await mediator.Send(new GetAllLiquidQueryRequest() { Page = page, Size = size, RestaurantId = restaurantId,BranchId=branchId });
             return Ok(response);
         }
     }

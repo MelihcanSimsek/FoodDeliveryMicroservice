@@ -13,6 +13,7 @@ namespace Menu.Domain.Common
         public DateTime CreationDate { get; set; } = DateTime.Now;
         public bool IsDeleted { get; set; } = false;
         public Guid RestaurantId { get; set; } = Guid.Empty;
+        public Guid BranchId { get; set; } = Guid.Empty;
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public Decimal Price { get; set; }

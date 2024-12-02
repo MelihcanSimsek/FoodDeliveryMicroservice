@@ -24,18 +24,17 @@ namespace Restaurant.Application.Features.Branches.Commands.BranchCreate
 
         public async Task<Unit> Handle(BranchCreateCommandRequest request, CancellationToken cancellationToken)
         {
-            Guid restaurantId = httpContextAccessor.HttpContext.User.GetUserId();
+            Guid userId = httpContextAccessor.HttpContext.User.GetUserId();
             var checkRestaurant = await unitOfWork.GetReadRepository<Restaurant.Domain.Entities.Restaurant>()
-                .GetAsync(p => p.Id == restaurantId && !p.IsDeleted);
+                .GetAsync(p => p.UserId == userId && !p.IsDeleted);
             await branchRules.ShouldRestaurantExists(checkRestaurant);
 
             Branch? checkbranch = await unitOfWork.GetReadRepository<Branch>()
-                .GetAsync(p => p.Address == request.Address && p.City == request.City && p.District == request.District);
+                .GetAsync(p => p.Address == request.Address && p.City == request.City && p.District == request.District && p.RestaurantId == request.RestaurantId);
 
             await branchRules.ShouldBranchCanNotBeDuplicated(checkbranch);
 
             Branch branch = mapper.Map<Branch, BranchCreateCommandRequest>(request);
-            branch.RestaurantId = restaurantId;
 
             await unitOfWork.GetWriteRepository<Branch>().AddAsync(branch);
             await unitOfWork.SaveAsync();

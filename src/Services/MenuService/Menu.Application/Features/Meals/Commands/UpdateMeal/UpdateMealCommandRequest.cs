@@ -9,6 +9,7 @@ namespace Menu.Application.Features.Meals.Commands.UpdateMeal
     {
         public Guid Id { get; set; }
         public Guid RestaurantId { get; set; }
+        public Guid BranchId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Decimal Price { get; set; }
@@ -16,7 +17,7 @@ namespace Menu.Application.Features.Meals.Commands.UpdateMeal
         public int? Portion { get; set; }
         public int Gram { get; set; }
         public string[] Roles => ["delivery.owner.restaurant"];
-        public string CacheRemoveKey => $"Meal_{RestaurantId}_*";
+        public string CacheRemoveKey => $"Meal_{RestaurantId}_{BranchId}_*";
 
     }
 }
