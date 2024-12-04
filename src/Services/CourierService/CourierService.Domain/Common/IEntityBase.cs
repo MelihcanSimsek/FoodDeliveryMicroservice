@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasketService.Domain.Enums
+namespace CourierService.Domain.Common
 {
-    public enum MenuType
+    public interface IEntityBase
     {
-        Liquid,
-        Meal
     }
 }

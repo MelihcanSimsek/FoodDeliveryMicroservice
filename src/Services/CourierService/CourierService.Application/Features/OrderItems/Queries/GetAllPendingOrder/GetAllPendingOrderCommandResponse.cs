@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasketService.Domain.Enums
+namespace CourierService.Application.Features.OrderItems.Queries.GetAllPendingOrder
 {
-    public enum MenuType
+    public class GetAllPendingOrderCommandResponse
     {
-        Liquid,
-        Meal
     }
 }
