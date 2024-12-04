@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasketService.Domain.Enums
+namespace CourierService.Domain.Enums
 {
-    public enum MenuType
+    public enum CourierStatus
     {
-        Liquid,
-        Meal
+        AVAILABLE,
+        ON_DELIVERY,
+        OFFLINE
     }
 }
