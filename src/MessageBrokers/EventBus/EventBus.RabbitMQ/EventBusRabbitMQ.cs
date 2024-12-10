@@ -111,7 +111,7 @@ namespace EventBus.RabbitMQ
                 }
 
                 consumerChannel.QueueDeclare(queue: GetSubName(eventName),
-                    durable: false,
+                    durable: true,
                     exclusive: false,
                     autoDelete: false,
                     arguments: null);
@@ -121,7 +121,7 @@ namespace EventBus.RabbitMQ
                     routingKey: eventName);
             }
             SubsManager.AddSubscription<T,TH>();
-
+            StartBasicConsume(eventName);
         }
 
         public override void UnSubscribe<T, TH>()

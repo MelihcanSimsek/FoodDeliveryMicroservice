@@ -104,15 +104,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Persistence", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderService.Infrastructure", "src\Services\OrderService\OrderService.Infrastructure\OrderService.Infrastructure.csproj", "{4418AAC4-1030-47D5-9815-8E16FB90AFDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.Api", "src\Services\PaymentService\PaymentService.Api\PaymentService.Api.csproj", "{7585DAEA-4B05-4DDD-BBB8-C5C1A8CFC987}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Api", "src\Services\PaymentService\PaymentService.Api\PaymentService.Api.csproj", "{7585DAEA-4B05-4DDD-BBB8-C5C1A8CFC987}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.Application", "src\Services\PaymentService\PaymentService.Application\PaymentService.Application.csproj", "{3C1086E5-F0AE-47C7-9B5E-43585E4F94E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Application", "src\Services\PaymentService\PaymentService.Application\PaymentService.Application.csproj", "{3C1086E5-F0AE-47C7-9B5E-43585E4F94E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.Domain", "src\Services\PaymentService\PaymentService.Domain\PaymentService.Domain.csproj", "{DC9DE789-BB01-4739-B4F3-51929D354B0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Domain", "src\Services\PaymentService\PaymentService.Domain\PaymentService.Domain.csproj", "{DC9DE789-BB01-4739-B4F3-51929D354B0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.Persistence", "src\Services\PaymentService\PaymentService.Persistence\PaymentService.Persistence.csproj", "{689C9212-377D-47A5-81C1-F07A366483CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Persistence", "src\Services\PaymentService\PaymentService.Persistence\PaymentService.Persistence.csproj", "{689C9212-377D-47A5-81C1-F07A366483CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.Infrastructure", "src\Services\PaymentService\PaymentService.Infrastructure\PaymentService.Infrastructure.csproj", "{3B8476B7-E786-498D-8F39-2DF81C0BBFDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Infrastructure", "src\Services\PaymentService\PaymentService.Infrastructure\PaymentService.Infrastructure.csproj", "{3B8476B7-E786-498D-8F39-2DF81C0BBFDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Infrastructure", "src\Services\NotificationService\NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{0F28BC7F-F3E6-4810-912C-E710D6DA7694}"
 EndProject
@@ -129,6 +129,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantOrderService.Persistence", "src\Services\RestaurantOrderService\RestaurantOrderService.Persistence\RestaurantOrderService.Persistence.csproj", "{B7DC9CC0-8603-4067-BAF6-FB14477AB1E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantOrderService.Infrastructure", "src\Services\RestaurantOrderService\RestaurantOrderService.Infrastructure\RestaurantOrderService.Infrastructure.csproj", "{0FF7B0AD-7875-4D92-9201-5FCD187E0031}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0410930A-1CEC-469A-AE74-05C7E5C58B8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBrokersTest", "MessageBrokersTest", "{A779D045-C91D-4148-9D25-8C14C937EDD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.RabbitMQ.UnitTest", "tests\MessageBrokersTest\EventBus.RabbitMQ.UnitTest\EventBus.RabbitMQ.UnitTest.csproj", "{AA542E2E-5097-4F80-9819-0B866E428843}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -316,6 +322,10 @@ Global
 		{0FF7B0AD-7875-4D92-9201-5FCD187E0031}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FF7B0AD-7875-4D92-9201-5FCD187E0031}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FF7B0AD-7875-4D92-9201-5FCD187E0031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA542E2E-5097-4F80-9819-0B866E428843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA542E2E-5097-4F80-9819-0B866E428843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA542E2E-5097-4F80-9819-0B866E428843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA542E2E-5097-4F80-9819-0B866E428843}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -381,6 +391,8 @@ Global
 		{16E03117-BEDB-4B35-8B16-DEB1C838DF80} = {EC115D52-7DF0-47C6-A506-945DE3E39CC6}
 		{B7DC9CC0-8603-4067-BAF6-FB14477AB1E4} = {EC115D52-7DF0-47C6-A506-945DE3E39CC6}
 		{0FF7B0AD-7875-4D92-9201-5FCD187E0031} = {EC115D52-7DF0-47C6-A506-945DE3E39CC6}
+		{A779D045-C91D-4148-9D25-8C14C937EDD9} = {0410930A-1CEC-469A-AE74-05C7E5C58B8C}
+		{AA542E2E-5097-4F80-9819-0B866E428843} = {A779D045-C91D-4148-9D25-8C14C937EDD9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E1B71E4-7DDB-4209-A460-79993E5DD755}
