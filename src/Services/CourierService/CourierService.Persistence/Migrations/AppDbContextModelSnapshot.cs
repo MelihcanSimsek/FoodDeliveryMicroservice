@@ -107,12 +107,18 @@ namespace CourierService.Persistence.Migrations
                     b.Property<int>("OrderStatus")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
                     b.Property<string>("RestaurantAddress")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("RestaurantId")
                         .HasColumnType("uuid");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()

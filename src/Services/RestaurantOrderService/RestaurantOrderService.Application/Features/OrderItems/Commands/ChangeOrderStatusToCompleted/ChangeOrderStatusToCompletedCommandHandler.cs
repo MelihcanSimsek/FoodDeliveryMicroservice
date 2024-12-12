@@ -1,6 +1,8 @@
-﻿using MediatR;
+﻿using EventBus.Base.Abstraction;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using RestaurantOrderService.Application.Bases;
+using RestaurantOrderService.Application.Features.OrderItems.IntegrationEvents.Events;
 using RestaurantOrderService.Application.Features.OrderItems.Rules;
 using RestaurantOrderService.Application.Interfaces.CustomMapper;
 using RestaurantOrderService.Application.Interfaces.UnitOfWorks;
@@ -17,9 +19,11 @@ namespace RestaurantOrderService.Application.Features.OrderItems.Commands.Change
     public class ChangeOrderStatusToCompletedCommandHandler : BaseHandler, IRequestHandler<ChangeOrderStatusToCompletedCommandRequest, Unit>
     {
         private readonly OrderItemRules orderItemRules;
-        public ChangeOrderStatusToCompletedCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, OrderItemRules orderItemRules) : base(mapper, unitOfWork, httpContextAccessor)
+        private readonly IEventBus eventBus;
+        public ChangeOrderStatusToCompletedCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, OrderItemRules orderItemRules, IEventBus eventBus) : base(mapper, unitOfWork, httpContextAccessor)
         {
             this.orderItemRules = orderItemRules;
+            this.eventBus = eventBus;
         }
 
         public async Task<Unit> Handle(ChangeOrderStatusToCompletedCommandRequest request, CancellationToken cancellationToken)
@@ -32,7 +36,11 @@ namespace RestaurantOrderService.Application.Features.OrderItems.Commands.Change
             await unitOfWork.GetWriteRepository<OrderItem>().UpdateAsync(orderItem);
             await unitOfWork.SaveAsync();
 
-            // this is a event line for delivery service
+            var restaurantCompletedEvent = new RestaurantCompletedIntegrationEvent(orderItem.UserId,
+                orderItem.RestaurantId, orderItem.BranchId, orderItem.OrderNumber, orderItem.MenuName,
+                orderItem.UnitPrice, orderItem.Quantity, orderItem.UserEmail, orderItem.Address,
+                orderItem.RestaurantAddress);
+            eventBus.Publish(restaurantCompletedEvent);
             
             return Unit.Value;
         }

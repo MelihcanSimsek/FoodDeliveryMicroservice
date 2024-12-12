@@ -15,6 +15,7 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
             RuleFor(p => p.UserEmail).NotEmpty();
             RuleFor(p => p.RestaurantAddress).NotEmpty();
             RuleFor(p => p.MenuName).NotEmpty();
+            RuleFor(p => p.Type).NotEmpty();
             RuleFor(p => p.UnitPrice).GreaterThan(0);
             RuleFor(p => p.Quantity).GreaterThanOrEqualTo(1);
         }

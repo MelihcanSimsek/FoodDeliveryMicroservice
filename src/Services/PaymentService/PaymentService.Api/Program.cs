@@ -3,6 +3,7 @@ using PaymentService.Persistence;
 using PaymentService.Infrastructure;
 using PaymentService.Application.Exceptions;
 using PaymentService.Api.Registrations;
+using PaymentService.Application.Features.Accounts.IntegrationEvents;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.ConfigureCustomExceptionMiddleware();
+app.ConfigureCustomEventBus();
 app.UseAuthentication();
 app.UseAuthorization();
 

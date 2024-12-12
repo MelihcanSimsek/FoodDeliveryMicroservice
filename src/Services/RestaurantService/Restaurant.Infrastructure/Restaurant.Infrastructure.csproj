@@ -12,4 +12,9 @@
     <ProjectReference Include="..\Restaurant.Persistence\Restaurant.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IntegrationEvents\Events\" />
+    <Folder Include="IntegrationEvents\EventHandlers\" />
+  </ItemGroup>
+
 </Project>

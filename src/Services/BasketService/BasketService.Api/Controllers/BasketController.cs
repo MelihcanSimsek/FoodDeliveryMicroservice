@@ -1,5 +1,6 @@
 ﻿using BasketService.Application.Features.CustomerBaskets.Commands.DeletAllBasket;
 using BasketService.Application.Features.CustomerBaskets.Commands.DeleteBasket;
+using BasketService.Application.Features.CustomerBaskets.Commands.StartOrder;
 using BasketService.Application.Features.CustomerBaskets.Commands.UpdateBasket;
 using BasketService.Application.Features.CustomerBaskets.Queries.GetAllUserBasket;
 using MediatR;
@@ -17,6 +18,13 @@ namespace BasketService.Api.Controllers
         public BasketController(IMediator mediator)
         {
             this.mediator = mediator;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> StartOrder()
+        {
+            await mediator.Send(new StartOrderCommandRequest());
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPut]

@@ -5,6 +5,11 @@ using MediatR;
 using FluentValidation;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using EventBus.Factory;
+using RabbitMQ.Client;
+using EventBus.Base;
+using EventBus.Base.Abstraction;
+using CourierService.Application.Features.OrderItems.IntegrationEvents.EventHandlers;
 namespace CourierService.Application
 {
     public static class Registrations
@@ -20,6 +25,7 @@ namespace CourierService.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
             services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));
+            services.AddEventBus();
             return services;
         }
 
@@ -29,6 +35,26 @@ namespace CourierService.Application
 
             foreach (var rule in rules)
                 services.AddTransient(rule);
+
+            return services;
+        }
+
+        private static IServiceCollection AddEventBus(this IServiceCollection services)
+        {
+            services.AddSingleton<IEventBus>(sp =>
+            {
+                EventBusConfig config = new()
+                {
+                    ConnectionRetryCount = 5,
+                    EventNameSuffix = "IntegrationEvent",
+                    SubscriberClientAppName = "CourierService",
+                    EventBusType = EventBusType.RabbitMQ,
+                };
+
+                return EventBusFactory.Create(config, sp);
+            });
+
+            services.AddTransient<RestaurantCompletedIntegrationEventHandler>();
 
             return services;
         }

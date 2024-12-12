@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using EventBus.Base.Abstraction;
+using EventBus.Base;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using OrderService.Application.Bases;
@@ -10,6 +12,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using EventBus.Factory;
+using RabbitMQ.Client;
+using OrderService.Application.Features.Orders.IntegrationEvents.EventHandlers;
 
 namespace OrderService.Application
 {
@@ -26,7 +31,8 @@ namespace OrderService.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
             services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));
-
+            services.AddEventBus();
+           
             return services;
         }
 
@@ -36,6 +42,28 @@ namespace OrderService.Application
 
             foreach (var rule in rules)
                 services.AddTransient(rule);
+
+            return services;
+        }
+
+        private static IServiceCollection AddEventBus(this IServiceCollection services)
+        {
+            services.AddSingleton<IEventBus>(sp =>
+            {
+                EventBusConfig config = new()
+                {
+                    ConnectionRetryCount = 5,
+                    EventNameSuffix = "IntegrationEvent",
+                    SubscriberClientAppName = "OrderService",
+                    EventBusType = EventBusType.RabbitMQ,
+                };
+
+                return EventBusFactory.Create(config, sp);
+            });
+
+            services.AddTransient<OrderStartedIntegrationEventHandler>();
+            services.AddTransient<OrderFailedIntegrationEventHandler>();
+            services.AddTransient<OrderCompletedIntegrationEventHandler>();
 
             return services;
         }

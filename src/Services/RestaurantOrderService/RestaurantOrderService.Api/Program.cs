@@ -3,6 +3,7 @@ using RestaurantOrderService.Persistence;
 using RestaurantOrderService.Infrastructure;
 using RestaurantOrderService.Application.Exceptions;
 using RestaurantOrderService.Api.Registrations;
+using RestaurantOrderService.Application.Features.OrderItems.IntegrationEvents;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.ConfigureCustomExceptionMiddleware();
+app.ConfigureCustomEventBus();
 app.UseAuthentication();
 app.UseAuthorization();
 

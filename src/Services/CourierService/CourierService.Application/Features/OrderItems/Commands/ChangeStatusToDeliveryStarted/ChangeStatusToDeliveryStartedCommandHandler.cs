@@ -1,5 +1,6 @@
 ﻿using CourierService.Application.Bases;
 using CourierService.Application.Extensions;
+using CourierService.Application.Features.OrderItems.IntegrationEvents.Events;
 using CourierService.Application.Features.OrderItems.Rules;
 using CourierService.Application.Interfaces.CustomMapper;
 using CourierService.Application.Interfaces.UnitOfWorks;
@@ -30,11 +31,18 @@ namespace CourierService.Application.Features.OrderItems.Commands.ChangeStatusTo
 
             Guid courierUserId = httpContextAccessor.HttpContext.User.GetUserId();
             orderItem.CourierUserId = courierUserId;
-            orderItem.OrderStatus =OrderStatus.DELIVERY_STARTED;
+            orderItem.OrderStatus = OrderStatus.DELIVERY_STARTED;
 
             await unitOfWork.GetWriteRepository<OrderItem>().UpdateAsync(orderItem);
             await unitOfWork.SaveAsync();
 
+            var notificationEvent = new NotificationEmailIntegrationEvent(orderItem.UserEmail,
+             "Dear Customer,\n\n" +
+             $"Your {orderItem.OrderNumber} has been started delivery by Courier.\n" +
+             "We will deliver your order to your Address in 30 minutes !!\n\n" +
+             "Thank you for choosing us.\n" +
+             "Have a nice day.\n\n" +
+             "---- This is a notification email ----");
 
             return Unit.Value;
         }

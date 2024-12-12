@@ -114,27 +114,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Persistence"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Infrastructure", "src\Services\PaymentService\PaymentService.Infrastructure\PaymentService.Infrastructure.csproj", "{3B8476B7-E786-498D-8F39-2DF81C0BBFDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Infrastructure", "src\Services\NotificationService\NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{0F28BC7F-F3E6-4810-912C-E710D6DA7694}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Infrastructure", "src\Services\NotificationService\NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{0F28BC7F-F3E6-4810-912C-E710D6DA7694}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Console", "src\Services\NotificationService\NotificationService.Console\NotificationService.Console.csproj", "{256F9E33-FAC1-44A2-A450-69E0A9225D48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Console", "src\Services\NotificationService\NotificationService.Console\NotificationService.Console.csproj", "{256F9E33-FAC1-44A2-A450-69E0A9225D48}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RestaurantOrderService", "RestaurantOrderService", "{EC115D52-7DF0-47C6-A506-945DE3E39CC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantOrderService.Api", "src\Services\RestaurantOrderService\RestaurantOrderService.Api\RestaurantOrderService.Api.csproj", "{80B0DF1E-8E3A-45C5-8FAF-5B5174BD09BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantOrderService.Api", "src\Services\RestaurantOrderService\RestaurantOrderService.Api\RestaurantOrderService.Api.csproj", "{80B0DF1E-8E3A-45C5-8FAF-5B5174BD09BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantOrderService.Domain", "src\Services\RestaurantOrderService\RestaurantOrderService.Domain\RestaurantOrderService.Domain.csproj", "{7FD6AFB2-B26B-4278-B7C6-0479F82C4D1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantOrderService.Domain", "src\Services\RestaurantOrderService\RestaurantOrderService.Domain\RestaurantOrderService.Domain.csproj", "{7FD6AFB2-B26B-4278-B7C6-0479F82C4D1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantOrderService.Application", "src\Services\RestaurantOrderService\RestaurantOrderService.Application\RestaurantOrderService.Application.csproj", "{16E03117-BEDB-4B35-8B16-DEB1C838DF80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantOrderService.Application", "src\Services\RestaurantOrderService\RestaurantOrderService.Application\RestaurantOrderService.Application.csproj", "{16E03117-BEDB-4B35-8B16-DEB1C838DF80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantOrderService.Persistence", "src\Services\RestaurantOrderService\RestaurantOrderService.Persistence\RestaurantOrderService.Persistence.csproj", "{B7DC9CC0-8603-4067-BAF6-FB14477AB1E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantOrderService.Persistence", "src\Services\RestaurantOrderService\RestaurantOrderService.Persistence\RestaurantOrderService.Persistence.csproj", "{B7DC9CC0-8603-4067-BAF6-FB14477AB1E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantOrderService.Infrastructure", "src\Services\RestaurantOrderService\RestaurantOrderService.Infrastructure\RestaurantOrderService.Infrastructure.csproj", "{0FF7B0AD-7875-4D92-9201-5FCD187E0031}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantOrderService.Infrastructure", "src\Services\RestaurantOrderService\RestaurantOrderService.Infrastructure\RestaurantOrderService.Infrastructure.csproj", "{0FF7B0AD-7875-4D92-9201-5FCD187E0031}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0410930A-1CEC-469A-AE74-05C7E5C58B8C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBrokersTest", "MessageBrokersTest", "{A779D045-C91D-4148-9D25-8C14C937EDD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.RabbitMQ.UnitTest", "tests\MessageBrokersTest\EventBus.RabbitMQ.UnitTest\EventBus.RabbitMQ.UnitTest.csproj", "{AA542E2E-5097-4F80-9819-0B866E428843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.RabbitMQ.UnitTest", "tests\MessageBrokersTest\EventBus.RabbitMQ.UnitTest\EventBus.RabbitMQ.UnitTest.csproj", "{AA542E2E-5097-4F80-9819-0B866E428843}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketService.Infrastructure", "src\Services\PaymentService\BasketService.Infrastructure\BasketService.Infrastructure.csproj", "{27FF09AA-B118-4E3C-9947-C64199A03A2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -326,6 +328,10 @@ Global
 		{AA542E2E-5097-4F80-9819-0B866E428843}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA542E2E-5097-4F80-9819-0B866E428843}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA542E2E-5097-4F80-9819-0B866E428843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27FF09AA-B118-4E3C-9947-C64199A03A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27FF09AA-B118-4E3C-9947-C64199A03A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27FF09AA-B118-4E3C-9947-C64199A03A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27FF09AA-B118-4E3C-9947-C64199A03A2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -393,6 +399,7 @@ Global
 		{0FF7B0AD-7875-4D92-9201-5FCD187E0031} = {EC115D52-7DF0-47C6-A506-945DE3E39CC6}
 		{A779D045-C91D-4148-9D25-8C14C937EDD9} = {0410930A-1CEC-469A-AE74-05C7E5C58B8C}
 		{AA542E2E-5097-4F80-9819-0B866E428843} = {A779D045-C91D-4148-9D25-8C14C937EDD9}
+		{27FF09AA-B118-4E3C-9947-C64199A03A2D} = {9CDF75D2-0D6D-4963-A107-618F44BA3A3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E1B71E4-7DDB-4209-A460-79993E5DD755}

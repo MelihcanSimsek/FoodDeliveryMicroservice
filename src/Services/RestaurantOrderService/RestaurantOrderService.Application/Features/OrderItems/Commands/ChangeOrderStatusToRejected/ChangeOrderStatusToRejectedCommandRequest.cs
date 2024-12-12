@@ -11,6 +11,7 @@ namespace RestaurantOrderService.Application.Features.OrderItems.Commands.Change
     public class ChangeOrderStatusToRejectedCommandRequest : ISecuredRequest , IRequest<Unit>
     {
         public Guid OrderNumber { get; set; }
+        public string Message { get; set; }
 
         public string[] Roles => ["delivery.owner.restaurant"];
     }

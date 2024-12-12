@@ -10,5 +10,6 @@ namespace OrderService.Application.Features.Orders.Commands.ChangeOrderStatusToF
     public class ChangeOrderStatusToFailedCommandRequest : IRequest<bool>
     {
         public Guid OrderNumber { get; set; }
+        public string FailMessage { get; set; }
     }
 }
