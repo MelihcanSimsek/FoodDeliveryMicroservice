@@ -3,6 +3,7 @@ using CourierService.Persistence;
 using CourierService.Infrastructure;
 using CourierService.Api.Registrations;
 using CourierService.Application.Exceptions;
+using CourierService.Application.Features.OrderItems.IntegrationEvents;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.ConfigureCustomExceptionMiddleware();
+app.ConfigureCustomEventBus();
 app.UseAuthentication();
 app.UseAuthorization();
 

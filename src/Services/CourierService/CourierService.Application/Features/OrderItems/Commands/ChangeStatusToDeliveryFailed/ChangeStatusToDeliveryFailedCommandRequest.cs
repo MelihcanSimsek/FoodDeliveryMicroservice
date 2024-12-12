@@ -11,6 +11,7 @@ namespace CourierService.Application.Features.OrderItems.Commands.ChangeStatusTo
     public class ChangeStatusToDeliveryFailedCommandRequest : IRequest<Unit>, ISecuredRequest
     {
         public Guid OrderNumber { get; set; }
+        public string Message { get; set; }
         public string[] Roles => ["delivery.owner.courier"];
     }
 }

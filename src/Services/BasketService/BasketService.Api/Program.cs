@@ -2,6 +2,7 @@ using BasketService.Application;
 using BasketService.Api.Registrations;
 using BasketService.Persistence;
 using BasketService.Application.Exceptions;
+using BasketService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddApplicationRegistration();
 builder.Services.AddPersistenceRegistration(builder.Configuration);
+builder.Services.AddInfrastructureRegistration();
 
 builder.Services.AddAuthenticationRegistration(builder.Configuration);
 builder.Services.AddSwaggerRegistration();

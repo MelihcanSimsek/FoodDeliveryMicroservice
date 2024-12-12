@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MessageBrokers\EventBus\EventBus.Base\EventBus.Base.csproj" />
+    <ProjectReference Include="..\..\..\MessageBrokers\EventBus\EventBus.Factory\EventBus.Factory.csproj" />
     <ProjectReference Include="..\RestaurantOrderService.Domain\RestaurantOrderService.Domain.csproj" />
   </ItemGroup>
 

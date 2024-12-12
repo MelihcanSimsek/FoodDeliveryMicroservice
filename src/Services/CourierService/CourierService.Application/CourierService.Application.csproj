@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MessageBrokers\EventBus\EventBus.Factory\EventBus.Factory.csproj" />
     <ProjectReference Include="..\CourierService.Domain\CourierService.Domain.csproj" />
   </ItemGroup>
 

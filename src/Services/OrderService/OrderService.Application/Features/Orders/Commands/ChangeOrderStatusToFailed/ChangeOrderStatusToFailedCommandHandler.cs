@@ -1,6 +1,8 @@
-﻿using MediatR;
+﻿using EventBus.Base.Abstraction;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using OrderService.Application.Bases;
+using OrderService.Application.Features.Orders.IntegrationEvents.Events;
 using OrderService.Application.Features.Orders.Rules;
 using OrderService.Application.Interfaces.CustomMapper;
 using OrderService.Application.Interfaces.UnitOfWorks;
@@ -17,9 +19,11 @@ namespace OrderService.Application.Features.Orders.Commands.ChangeOrderStatusToF
     public class ChangeOrderStatusToFailedCommandHandler : BaseHandler, IRequestHandler<ChangeOrderStatusToFailedCommandRequest, bool>
     {
         private readonly OrderRules orderRules;
-        public ChangeOrderStatusToFailedCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor, OrderRules orderRules) : base(unitOfWork, mapper, httpContextAccessor)
+        private readonly IEventBus eventBus;
+        public ChangeOrderStatusToFailedCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor, OrderRules orderRules, IEventBus eventBus) : base(unitOfWork, mapper, httpContextAccessor)
         {
             this.orderRules = orderRules;
+            this.eventBus = eventBus;
         }
 
         public async Task<bool> Handle(ChangeOrderStatusToFailedCommandRequest request, CancellationToken cancellationToken)
@@ -40,10 +44,21 @@ namespace OrderService.Application.Features.Orders.Commands.ChangeOrderStatusToF
                 UnitPrice = order.UnitPrice,
                 UserEmail = order.UserEmail,
                 Address = order.Address,
+                FailMessage = request.FailMessage
             };
 
             await unitOfWork.GetWriteRepository<Order>().AddAsync(newOrder);
             await unitOfWork.SaveAsync();
+
+            var notificationEvent = new NotificationEmailIntegrationEvent(order.UserEmail,
+              $"Dear Customer,\n\n" +
+              $"Your {order.OrderNumber} has been failed.\n" +
+              $"Your order {order.Type},{order.MenuName},{order.Quantity} is failed at {order.CreationDate.ToShortTimeString()} !!\n\n" +
+              $"We already refund your money  [{order.Quantity * order.UnitPrice}] to your account !!\n\n"+
+              "Thank you for choosing us.\n" +
+              "Have a nice day.\n\n" +
+              "---- This is a notification email ----");
+            eventBus.Publish(notificationEvent);
 
             return true;
         }

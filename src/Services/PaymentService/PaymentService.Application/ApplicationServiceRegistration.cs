@@ -5,6 +5,11 @@ using MediatR;
 using PaymentService.Application.Bases;
 using PaymentService.Application.Exceptions;
 using PaymentService.Application.Behaviours;
+using EventBus.Factory;
+using EventBus.Base.Abstraction;
+using EventBus.Base;
+using RabbitMQ.Client;
+using PaymentService.Application.Features.Accounts.IntegrationEvents.EventHandlers;
 
 namespace PaymentService.Application
 {
@@ -22,6 +27,7 @@ namespace PaymentService.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
 
             services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));
+            services.AddEventBus();
             return services;
         }
 
@@ -31,6 +37,28 @@ namespace PaymentService.Application
 
             foreach (var rule in rules)
                 services.AddTransient(rule);
+
+            return services;
+        }
+
+        private static IServiceCollection AddEventBus(this IServiceCollection services)
+        {
+            services.AddSingleton<IEventBus>(sp =>
+            {
+                EventBusConfig config = new()
+                {
+                    ConnectionRetryCount = 5,
+                    EventNameSuffix = "IntegrationEvent",
+                    SubscriberClientAppName = "PaymentService",
+                    EventBusType = EventBusType.RabbitMQ,
+                };
+
+                return EventBusFactory.Create(config, sp);
+            });
+
+            services.AddTransient<OrderCreatedIntegrationEventHandler>();
+            services.AddTransient<RestaurantRejectedIntegrationEventHandler>();
+            services.AddTransient<DeliveryFailedIntegrationEventHandler>();
 
             return services;
         }

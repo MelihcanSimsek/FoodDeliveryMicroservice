@@ -17,6 +17,8 @@ namespace CourierService.Application.Features.OrderItems.Commands.CreateOrderIte
         public string RestaurantAddress { get; set; }
         public string UserEmail { get; set; }
         public string Address { get; set; }
+        public decimal UnitPrice { get; set; }
+        public int Quantity { get; set; }
         public OrderStatus OrderStatus { get; set; } = OrderStatus.PENDING;
         public Guid? CourierUserId { get; set; } = null;
     }

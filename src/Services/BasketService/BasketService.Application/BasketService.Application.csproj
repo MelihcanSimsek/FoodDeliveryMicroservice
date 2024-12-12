@@ -7,13 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Features\CustomerBaskets\Exceptions\" />
-		<Folder Include="Features\CustomerBaskets\Constants\" />
-		<Folder Include="Features\CustomerBaskets\Rules\" />
-		<Folder Include="Bases\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="MediatR" Version="12.4.1" />
 		<PackageReference Include="FluentValidation" Version="11.11.0" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
@@ -25,7 +18,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\MessageBrokers\EventBus\EventBus.Base\EventBus.Base.csproj" />
+		<ProjectReference Include="..\..\..\MessageBrokers\EventBus\EventBus.Factory\EventBus.Factory.csproj" />
 		<ProjectReference Include="..\BasketService.Domain\BasketService.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Features\CustomerBaskets\IntegrationEvents\EventHandlers\" />
 	</ItemGroup>
 
 </Project>

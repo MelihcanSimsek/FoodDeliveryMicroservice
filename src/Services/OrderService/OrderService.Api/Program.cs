@@ -3,6 +3,7 @@ using OrderService.Persistence;
 using OrderService.Infrastructure;
 using OrderService.Api.Registrations;
 using OrderService.Application.Exceptions;
+using OrderService.Application.Features.Orders.IntegrationEvents;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.ConfigureCustomExceptionMiddleware();
+app.ConfigureCustomEventBus();
 app.UseAuthentication();
 app.UseAuthorization();
 

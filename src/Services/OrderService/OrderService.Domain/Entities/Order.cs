@@ -18,16 +18,12 @@ namespace OrderService.Domain.Entities
         public string UserEmail { get; set; }
         public string Address { get; set; }
         public string MenuName { get; set; }
+        public string Type { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public OrderStatus Status { get; set; }
-
-        public Order()
-        {
-            
-        }
-
-        public Order(Guid orderNumber, Guid restaurantId, Guid branchId, Guid userId, string restaurantAddress, string userEmail, string address, string menuName, decimal unitPrice, int quantity, OrderStatus status)
+        public string? FailMessage { get; set; }
+        public Order(Guid orderNumber, Guid restaurantId, Guid branchId, Guid userId, string restaurantAddress, string userEmail, string address, string menuName, string type, decimal unitPrice, int quantity, OrderStatus status, string? failMessage)
         {
             OrderNumber = orderNumber;
             RestaurantId = restaurantId;
@@ -37,9 +33,18 @@ namespace OrderService.Domain.Entities
             UserEmail = userEmail;
             Address = address;
             MenuName = menuName;
+            Type = type;
             UnitPrice = unitPrice;
             Quantity = quantity;
             Status = status;
+            FailMessage = failMessage;
         }
+
+        public Order()
+        {
+            
+        }
+
+      
     }
 }
