@@ -31,22 +31,9 @@ namespace OrderService.Application.Features.Orders.Commands.ChangeOrderStatusToC
             Order? order = await unitOfWork.GetReadRepository<Order>().GetAsync(p => p.OrderNumber == request.OrderNumber && p.Status == OrderStatus.ORDER_STARTED);
             await orderRules.ShouldOrderExists(order);
 
-            Order newOrder = new Order()
-            {
-                RestaurantId = order.RestaurantId,
-                BranchId = order.BranchId,
-                UserId = order.UserId,
-                MenuName = order.MenuName,
-                Quantity = order.Quantity,
-                OrderNumber = order.OrderNumber,
-                Status = OrderStatus.ORDER_COMPLETED,
-                RestaurantAddress = order.RestaurantAddress,
-                UnitPrice = order.UnitPrice,
-                UserEmail = order.UserEmail,
-                Address = order.Address,
-            };
+            order.Status = OrderStatus.ORDER_COMPLETED;
 
-            await unitOfWork.GetWriteRepository<Order>().AddAsync(newOrder);
+            await unitOfWork.GetWriteRepository<Order>().UpdateAsync(order);
             await unitOfWork.SaveAsync();
 
             var notificationEvent = new NotificationEmailIntegrationEvent(order.UserEmail,

@@ -6,6 +6,7 @@ using CourierService.Application.Interfaces.CustomMapper;
 using CourierService.Application.Interfaces.UnitOfWorks;
 using CourierService.Domain.Entites;
 using CourierService.Domain.Enums;
+using EventBus.Base.Abstraction;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -19,9 +20,11 @@ namespace CourierService.Application.Features.OrderItems.Commands.ChangeStatusTo
     public class ChangeStatusToDeliveryStartedCommandHandler : BaseHandler, IRequestHandler<ChangeStatusToDeliveryStartedCommandRequest, Unit>
     {
         private readonly OrderItemRules orderItemRules;
-        public ChangeStatusToDeliveryStartedCommandHandler(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, IMapper mapper, OrderItemRules orderItemRules) : base(unitOfWork, httpContextAccessor, mapper)
+        private readonly IEventBus eventBus;
+        public ChangeStatusToDeliveryStartedCommandHandler(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, IMapper mapper, OrderItemRules orderItemRules, IEventBus eventBus) : base(unitOfWork, httpContextAccessor, mapper)
         {
             this.orderItemRules = orderItemRules;
+            this.eventBus = eventBus;
         }
 
         public async Task<Unit> Handle(ChangeStatusToDeliveryStartedCommandRequest request, CancellationToken cancellationToken)
@@ -43,6 +46,7 @@ namespace CourierService.Application.Features.OrderItems.Commands.ChangeStatusTo
              "Thank you for choosing us.\n" +
              "Have a nice day.\n\n" +
              "---- This is a notification email ----");
+            eventBus.Publish(notificationEvent);
 
             return Unit.Value;
         }

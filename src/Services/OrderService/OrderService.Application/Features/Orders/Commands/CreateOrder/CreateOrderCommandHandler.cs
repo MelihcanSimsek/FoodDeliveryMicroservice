@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace OrderService.Application.Features.Orders.Commands.CreateOrder
 {
-    public class CreateOrderCommandHandler : BaseHandler, IRequestHandler<CreateOrderCommandRequest, CreateOrderCommandResponse>
+    public class CreateOrderCommandHandler : BaseHandler, IRequestHandler<CreateOrderCommandRequest, bool>
     {
         private readonly IEventBus evenBus;
         public CreateOrderCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor, IEventBus evenBus) : base(unitOfWork, mapper, httpContextAccessor)
@@ -23,23 +23,27 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
             this.evenBus = evenBus;
         }
 
-        public async Task<CreateOrderCommandResponse> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
         {
-            Order order = mapper.Map<Order, CreateOrderCommandRequest>(request);
-            order.OrderNumber = Guid.NewGuid();
-            order.Status = OrderStatus.ORDER_STARTED;
+            List<EventPaymentItem> eventPaymentItems = new List<EventPaymentItem>();
+            foreach (var orderItem in request.EventOrderItems)
+            {
+                Order order = mapper.Map<Order, EventOrderItem>(orderItem);
+                order.UserId = request.UserId;
+                order.OrderNumber = Guid.NewGuid();
+                order.Status = OrderStatus.ORDER_STARTED;
 
-            await unitOfWork.GetWriteRepository<Order>().AddAsync(order);
-            await unitOfWork.SaveAsync();
+                await unitOfWork.GetWriteRepository<Order>().AddAsync(order);
+                await unitOfWork.SaveAsync();
 
-            var response = mapper.Map<CreateOrderCommandResponse, Order>(order);
-         
-            var orderCreatedEvent = new OrderCreatedIntegrationEvent(order.UserId, order.RestaurantId,
-                order.BranchId, order.OrderNumber, order.MenuName, order.UnitPrice, order.Quantity,
-                order.UserEmail, order.Address, order.RestaurantAddress);
+                eventPaymentItems.Add(new EventPaymentItem(order.OrderNumber, order.RestaurantId, order.BranchId,
+                    order.MenuName, order.Type.ToString(), order.UnitPrice, order.Quantity, order.UserEmail,
+                    order.Address, order.RestaurantAddress));
+            }
+
+            var orderCreatedEvent = new OrderCreatedIntegrationEvent(request.UserId,eventPaymentItems );
             evenBus.Publish(orderCreatedEvent);
-
-            return response;
+            return true;
         }
     }
 }

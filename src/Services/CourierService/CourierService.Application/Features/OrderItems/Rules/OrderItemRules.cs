@@ -14,7 +14,7 @@ namespace CourierService.Application.Features.OrderItems.Rules
 
         public async Task ShouldOrderItemExists(OrderItem? orderItem)
         {
-            if (orderItem is not null) throw new OrderNotExistsException();
+            if (orderItem is null) throw new OrderNotExistsException();
         }
     }
 }

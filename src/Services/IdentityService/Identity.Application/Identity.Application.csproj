@@ -19,7 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MessageBrokers\EventBus\EventBus.Base\EventBus.Base.csproj" />
+    <ProjectReference Include="..\..\..\MessageBrokers\EventBus\EventBus.Factory\EventBus.Factory.csproj" />
     <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Auth\IntegrationEvents\EventHandlers\" />
   </ItemGroup>
 
 </Project>

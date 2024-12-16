@@ -1,4 +1,6 @@
-﻿using Identity.Application.Features.Auth.Rules;
+﻿using EventBus.Base.Abstraction;
+using Identity.Application.Features.Auth.IntegrationEvents.Events;
+using Identity.Application.Features.Auth.Rules;
 using Identity.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -15,12 +17,14 @@ namespace Identity.Application.Features.Auth.Commands.Register
         private readonly AuthRules authRules;
         private readonly UserManager<User> userManager;
         private readonly RoleManager<Role> roleManager;
+        private readonly IEventBus eventBus;
 
-        public RegisterCommandHandler(AuthRules authRules, UserManager<User> userManager, RoleManager<Role> roleManager)
+        public RegisterCommandHandler(AuthRules authRules, UserManager<User> userManager, RoleManager<Role> roleManager, IEventBus eventBus)
         {
             this.authRules = authRules;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.eventBus = eventBus;
         }
 
         public async Task<Unit> Handle(RegisterCommandRequest request, CancellationToken cancellationToken)
@@ -48,6 +52,9 @@ namespace Identity.Application.Features.Auth.Commands.Register
                     });
 
             await userManager.AddToRoleAsync(user, "user");
+
+            var accountEvent = new UserCreatedIntegrationEvent(user.Id);
+            eventBus.Publish(accountEvent);
 
             return Unit.Value;
         }

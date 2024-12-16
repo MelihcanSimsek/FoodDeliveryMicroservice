@@ -22,13 +22,6 @@ namespace PaymentService.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create()
-        {
-            await mediator.Send(new CreateAccountCommandRequest());
-            return StatusCode(StatusCodes.Status201Created);
-        }
-
-        [HttpPost]
         public async Task<IActionResult> CheckBalanceForOrder(CheckBalanceForOrderCommandRequest request)
         {
             await mediator.Send(request);

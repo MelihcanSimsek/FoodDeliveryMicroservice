@@ -21,9 +21,9 @@ namespace BasketService.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> StartOrder()
+        public async Task<IActionResult> StartOrder(StartOrderCommandRequest request)
         {
-            await mediator.Send(new StartOrderCommandRequest());
+            await mediator.Send(request);
             return StatusCode(StatusCodes.Status200OK);
         }
 

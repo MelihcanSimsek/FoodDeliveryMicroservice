@@ -1,6 +1,12 @@
-﻿namespace BasketService.Application.Features.CustomerBaskets.IntegrationEvents.Events
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OrderService.Application.Features.Orders.IntegrationEvents.Events
 {
-    public class EvenOrderItem
+    public class EventOrderItem
     {
         public Guid RestaurantId { get; set; }
         public Guid BranchId { get; set; }
@@ -12,7 +18,7 @@
         public string Address { get; set; }
         public string RestaurantAddress { get; set; }
 
-        public EvenOrderItem(Guid restaurantId, Guid branchId, string menuName, string type, decimal unitPrice, int quantity, string userEmail, string address, string restaurantAddress)
+        public EventOrderItem(Guid restaurantId, Guid branchId, string menuName, string type, decimal unitPrice, int quantity, string userEmail, string address, string restaurantAddress)
         {
             RestaurantId = restaurantId;
             BranchId = branchId;
@@ -26,4 +32,3 @@
         }
     }
 }
-

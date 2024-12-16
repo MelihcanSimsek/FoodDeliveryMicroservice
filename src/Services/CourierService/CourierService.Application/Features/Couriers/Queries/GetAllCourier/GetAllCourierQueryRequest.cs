@@ -10,6 +10,6 @@ namespace CourierService.Application.Features.Couriers.Queries.GetAllCourier
 {
     public class GetAllCourierQueryRequest : IRequest<IList<GetAllCourierQueryResponse>>,ISecuredRequest
     {
-        public string[] Roles => ["delivery.owner.restaurant", "delivery.owner.courier", "admin"];
+        public string[] Roles => ["delivery.owner.restaurant", "courier", "admin"];
     }
 }

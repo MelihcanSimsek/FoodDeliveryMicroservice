@@ -10,6 +10,6 @@ namespace CourierService.Application.Features.Couriers.Commands.DeleteCourier
 {
     public class DeleteCourierCommandRequest : IRequest<Unit>, ISecuredRequest
     {
-        public string[] Roles => ["delivery.owner.courier"];
+        public string[] Roles => ["courier"];
     }
 }

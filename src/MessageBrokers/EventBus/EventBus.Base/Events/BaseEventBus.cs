@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,31 +44,64 @@ namespace EventBus.Base.Events
             SubsManager.Clear();
         }
 
-        public async Task<bool> ProcessEvent(string eventName,string message)
+        public async Task<bool> ProcessEvent(string eventName, string message)
         {
             eventName = ProcessEventName(eventName);
             bool processed = false;
 
-            if(SubsManager.HasSubscriptionsForEvent(eventName))
+            if (SubsManager.HasSubscriptionsForEvent(eventName))
             {
                 var subscriptions = SubsManager.GetHandlersForEvent(eventName);
                 using (var scope = ServiceProvider.CreateScope())
                 {
+                    var scopedServiceProvider = scope.ServiceProvider;
+
                     foreach (var subscription in subscriptions)
                     {
-                        var handler = ServiceProvider.GetService(subscription.HandlerType);
+                        var handler = scopedServiceProvider.GetService(subscription.HandlerType);
+                        if (handler == null)
+                        {
+                            Console.WriteLine($"Handler not found for type: {subscription.HandlerType.Name}");
+                            continue;
+                        }
 
-                        if (handler is null) continue;
+                        var eventType = SubsManager.GetEventTypeByName(
+                            $"{EventBusConfig.EventNamePrefix}{eventName}{EventBusConfig.EventNameSuffix}");
 
-                        var eventType = SubsManager
-                            .GetEventTypeByName($"{EventBusConfig.EventNamePrefix}" +
-                            $"{eventName}{EventBusConfig.EventNameSuffix}");
+                        if (eventType == null)
+                        {
+                            Console.WriteLine($"Event type not found for event name: {eventName}");
+                            continue;
+                        }
 
-                        var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
+                        object integrationEvent;
+                        try
+                        {
+                            integrationEvent = JsonConvert.DeserializeObject(message, eventType);
+                        }
+                        catch (JsonException ex)
+                        {
+                            Console.WriteLine($"Failed to deserialize message: {ex.Message}");
+                            continue;
+                        }
 
                         var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+                        var handleMethod = concreteType.GetMethod("Handle");
+                        if (handleMethod == null)
+                        {
+                            Console.WriteLine($"Handle method not found for type: {concreteType.Name}");
+                            continue;
+                        }
 
-                        await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
+                        try
+                        {
+                            await (Task)handleMethod.Invoke(handler, new object[] { integrationEvent });
+                        }
+                        catch (TargetInvocationException ex)
+                        {
+                            Console.WriteLine($"Error invoking Handle method: {ex.InnerException?.Message}");
+                            throw;
+                        }
                     }
                 }
 

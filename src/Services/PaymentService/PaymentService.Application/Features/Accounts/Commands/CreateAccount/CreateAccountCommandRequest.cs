@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace PaymentService.Application.Features.Accounts.Commands.CreateAccount
 {
-    public class CreateAccountCommandRequest : IRequest<Unit>, ISecuredRequest
+    public class CreateAccountCommandRequest : IRequest<bool>
     {
-        public string[] Roles => ["user"];
+        public Guid UserId { get; set; }
     }
 }

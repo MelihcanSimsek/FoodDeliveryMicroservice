@@ -25,29 +25,38 @@ namespace PaymentService.Application.Features.Accounts.Commands.UpdateBalanceFor
         public async Task<bool> Handle(DownBalanceForOrderCommandRequest request, CancellationToken cancellationToken)
         {
 
-            await unitOfWork.BeginTransactionAsync();
             try
             {
+                await unitOfWork.BeginTransactionAsync();
                 Account account = await unitOfWork.GetReadRepository<Account>().GetAsync(p => p.UserId == request.UserId);
-                account.Balance = account.Balance - (request.UnitPrice * request.Quantity);
-
+                foreach (var paymentItem in request.EventPaymentItems)
+                {
+                    account.Balance = account.Balance - (paymentItem.UnitPrice * paymentItem.Quantity);
+                }
                 await unitOfWork.GetWriteRepository<Account>().UpdateAsync(account);
                 await unitOfWork.SaveAsync();
                 await unitOfWork.CommitTransactionAsync();
 
-                var paymentSuccessIntegrationEvent = new PaymentSuccessIntegrationEvent(request.UserId, request.RestaurantId,
-                    request.BranchId, request.OrderNumber, request.MenuName,
-                    request.UnitPrice, request.Quantity, request.UserEmail,
-                    request.Address, request.RestaurantAddress);
-                eventBus.Publish(paymentSuccessIntegrationEvent);
+                foreach (var paymentItem in request.EventPaymentItems)
+                {
+                    var paymentSuccessIntegrationEvent = new PaymentSuccessIntegrationEvent(request.UserId, paymentItem.RestaurantId,
+                    paymentItem.BranchId, paymentItem.OrderNumber, paymentItem.MenuName,
+                    paymentItem.UnitPrice, paymentItem.Quantity, paymentItem.UserEmail,
+                    paymentItem.Address, paymentItem.RestaurantAddress);
+                    eventBus.Publish(paymentSuccessIntegrationEvent);
+                }
+                
                 return true;
             }
             catch (Exception)
             {
                 await unitOfWork.RollbackTransactionAsync();
-                var orderFailedEventForPaymentFailed = new OrderFailedIntegrationEvent(request.OrderNumber,
+                foreach (var paymentItem in request.EventPaymentItems)
+                {
+                    var orderFailedEventForPaymentFailed = new OrderFailedIntegrationEvent(paymentItem.OrderNumber,
                     "An error occurred during checkout, so the order is being cancelled.");
-                eventBus.Publish(orderFailedEventForPaymentFailed);
+                    eventBus.Publish(orderFailedEventForPaymentFailed);
+                }
                 return true;
             }
 

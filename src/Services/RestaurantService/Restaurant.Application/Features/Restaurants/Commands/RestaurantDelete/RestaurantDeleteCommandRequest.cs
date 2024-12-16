@@ -10,6 +10,6 @@ namespace Restaurant.Application.Features.Restaurants.Commands.RestaurantDelete
 {
     public class RestaurantDeleteCommandRequest : IRequest<Unit>, ISecuredRequest
     {
-        public string[] Roles => ["delivery.owner.restaurant"];
+        public string[] Roles => ["restaurantworker"];
     }
 }

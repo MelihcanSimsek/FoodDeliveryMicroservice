@@ -32,18 +32,17 @@ namespace PaymentService.Application.Features.Accounts.Commands.AddBalanceWithMe
             Account? account = await unitOfWork.GetReadRepository<Account>().GetAsync(p => p.UserId == userId);
             await accountRules.ShouldAccountExists(account);
 
-            PaymentCard paymentCard = new()
+            PaymentCard paymentCard = new PaymentCard()
             {
-                CCV = request.CCV,
-                ExpiryDate = request.ExpiryDate,
-                Name = request.CardName,
-                Number = request.CardNumber,
-                Type = request.Type
+                Name=request.CardName,
+                CCV=request.CCV,
+                ExpiryDate=request.ExpiryDate,
+                Type=request.Type,
+                Number=request.CardNumber,
             };
-            
 
-            await accountRules.ShouldCardValid(!await paymentService.CheckCardValid(paymentCard));
-            await accountRules.ShouldPaymentSuccess(!await paymentService.TakePayment(paymentCard, request.Amount));
+            await accountRules.ShouldCardValid(await paymentService.CheckCardValid(paymentCard));
+            await accountRules.ShouldPaymentSuccess(await paymentService.TakePayment(paymentCard, request.Amount));
 
             account.Balance = account.Balance + request.Amount;
             await unitOfWork.GetWriteRepository<Account>().UpdateAsync(account);

@@ -24,8 +24,6 @@ namespace Menu.Application.Features.Meals.Commands.CreateMeal
         public async Task<Unit> Handle(CreateMealCommandRequest request, CancellationToken cancellationToken)
         {
             Meal meal = mapper.Map<Meal, CreateMealCommandRequest>(request);
-            meal.RestaurantId = httpContextAccessor.HttpContext.User.GetUserId();
-
             await mealRepository.AddAsync(meal);
             return Unit.Value;
         }

@@ -23,16 +23,8 @@ namespace PaymentService.Application.Features.Accounts.IntegrationEvents.EventHa
         {
             var request = new DownBalanceForOrderCommandRequest()
             {
-                Address = @event.Address,
-                BranchId = @event.BranchId,
-                MenuName = @event.MenuName,
-                OrderNumber = @event.OrderNumber,
-                Quantity = @event.Quantity,
-                RestaurantAddress = @event.RestaurantAddress,
-                RestaurantId = @event.RestaurantId,
-                UnitPrice = @event.UnitPrice,
-                UserEmail = @event.UserEmail,
-                UserId = @event.UserId
+               EventPaymentItems=@event.EventPaymentItems,
+               UserId = @event.UserId
             };
 
             await mediator.Send(request);

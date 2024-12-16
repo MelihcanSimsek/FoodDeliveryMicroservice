@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Consul" Version="1.7.14.6" />
+    <PackageReference Include="Ocelot" Version="23.4.2" />
+    <PackageReference Include="Ocelot.Provider.Consul" Version="23.4.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 

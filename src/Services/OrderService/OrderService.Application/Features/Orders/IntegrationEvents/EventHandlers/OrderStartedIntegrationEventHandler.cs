@@ -21,26 +21,12 @@ namespace OrderService.Application.Features.Orders.IntegrationEvents.EventHandle
 
         public async Task Handle(OrderStartedIntegrationEvent @event)
         {
-            foreach (var item in @event.EvenOrderItems)
+            var createOrderRequest = new CreateOrderCommandRequest()
             {
-                var createOrderRequest = new CreateOrderCommandRequest()
-                {
-                    MenuName = item.MenuName,
-                    BranchId = item.BranchId,
-                    Quantity = item.Quantity,
-                    RestaurantId = item.RestaurantId,
-                    Type = item.Type,
-                    UnitPrice = item.UnitPrice,
-                    UserEmail = item.UserEmail,
-                    Address = item.Address,
-                    RestaurantAddress = item.RestaurantAddress,
-                    UserId = @event.UserId
-                };
-
-               var response =  await mediator.Send(createOrderRequest);
-            }
-
-            Task.CompletedTask.Wait();
+               UserId=@event.UserId,
+               EventOrderItems=@event.EventOrderItems
+            };
+            await mediator.Send(createOrderRequest);
         }
     }
 }

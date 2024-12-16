@@ -10,6 +10,6 @@ namespace CourierService.Application.Features.Couriers.Commands.ChangeStatusToOn
 {
     public class ChangeStatusToOnDeliveryCommandRequest : IRequest<Unit>, ISecuredRequest
     {
-        public string[] Roles => ["delivery.owner.courier"];
+        public string[] Roles => ["courier"];
     }
 }

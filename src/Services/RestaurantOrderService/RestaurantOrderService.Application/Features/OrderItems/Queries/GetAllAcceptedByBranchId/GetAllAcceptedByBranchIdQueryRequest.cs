@@ -11,6 +11,6 @@ namespace RestaurantOrderService.Application.Features.OrderItems.Queries.GetAllA
     public class GetAllAcceptedByBranchIdQueryRequest : ISecuredRequest, IRequest<IList<GetAllAcceptedByBranchIdQueryResponse>>
     {
         public Guid BranchId { get; set; }
-        public string[] Roles => ["delivery.owner.restaurant"];
+        public string[] Roles => ["restaurantworker"];
     }
 }

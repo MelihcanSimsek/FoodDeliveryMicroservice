@@ -10,11 +10,13 @@ namespace BasketService.Application.Features.CustomerBaskets.IntegrationEvents.E
     public class OrderStartedIntegrationEvent : IntegrationEvent
     {
         public Guid UserId { get; set; }
-        public List<EvenOrderItem> EvenOrderItems { get; set; }
-        public OrderStartedIntegrationEvent(Guid userId, List<EvenOrderItem> evenOrderItems)
+
+        public List<EventOrderItem> EventOrderItems { get; set; }
+
+        public OrderStartedIntegrationEvent(Guid userId, List<EventOrderItem> eventOrderItems)
         {
             UserId = userId;
-            EvenOrderItems = evenOrderItems;
+            EventOrderItems = eventOrderItems;
         }
     }
 }

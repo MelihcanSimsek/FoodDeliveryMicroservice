@@ -11,6 +11,6 @@ namespace Restaurant.Application.Features.Branches.Commands.BranchDelete
     public class BranchDeleteCommandRequest : IRequest<Unit>,ISecuredRequest
     {
         public Guid Id { get; set; }
-        public string[] Roles => ["delivery.owner.restaurant"];
+        public string[] Roles => ["restaurantadmin"];
     }
 }

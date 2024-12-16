@@ -1,4 +1,6 @@
-﻿using Identity.Application.Features.Auth.Commands.Login;
+﻿using Identity.Application.Features.Auth.Commands.AssignRole;
+using Identity.Application.Features.Auth.Commands.CreateRole;
+using Identity.Application.Features.Auth.Commands.Login;
 using Identity.Application.Features.Auth.Commands.RefreshToken;
 using Identity.Application.Features.Auth.Commands.Register;
 using Identity.Application.Features.Auth.Commands.Revoke;
@@ -55,6 +57,20 @@ namespace Identity.Api.Controllers
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> RevokeAll(RevokeAllCommandRequest request)
+        {
+            await mediator.Send(request);
+            return StatusCode(StatusCodes.Status200OK);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(CreateRoleCommandRequest request)
+        {
+            await mediator.Send(request);
+            return StatusCode(StatusCodes.Status200OK);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(AssignRoleCommandRequest request)
         {
             await mediator.Send(request);
             return StatusCode(StatusCodes.Status200OK);

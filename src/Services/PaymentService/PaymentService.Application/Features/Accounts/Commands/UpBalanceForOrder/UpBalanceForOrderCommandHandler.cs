@@ -25,9 +25,9 @@ namespace PaymentService.Application.Features.Accounts.Commands.UpBalanceForOrde
 
         public async Task<bool> Handle(UpBalanceForOrderCommandRequest request, CancellationToken cancellationToken)
         {
-            await unitOfWork.BeginTransactionAsync();
             try
             {
+                await unitOfWork.BeginTransactionAsync();
                 Account account = await unitOfWork.GetReadRepository<Account>().GetAsync(p => p.UserId == request.UserId);
                 account.Balance = account.Balance + (request.UnitPrice * request.Quantity);
 

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace PaymentService.Application.Features.Accounts.Commands.CreateAccount
 {
-    public class CreateAccountCommandHandler : BaseHandler, IRequestHandler<CreateAccountCommandRequest, Unit>
+    public class CreateAccountCommandHandler : BaseHandler, IRequestHandler<CreateAccountCommandRequest, bool>
     {
         private readonly AccountRules accountRules;
         public CreateAccountCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor, AccountRules accountRules) : base(unitOfWork, mapper, httpContextAccessor)
@@ -22,21 +22,17 @@ namespace PaymentService.Application.Features.Accounts.Commands.CreateAccount
             this.accountRules = accountRules;
         }
 
-        public async Task<Unit> Handle(CreateAccountCommandRequest request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateAccountCommandRequest request, CancellationToken cancellationToken)
         {
-            Guid userId = httpContextAccessor.HttpContext.User.GetUserId();
-            Account? checkAccount = await unitOfWork.GetReadRepository<Account>().GetAsync(p => p.UserId == userId);
-            await accountRules.ShouldAccountNotExists(checkAccount);
-
             Account account = new Account()
             {
-                UserId = userId,
+                UserId = request.UserId,
                 LastUpdateDate = DateTime.Now
             };
 
             await unitOfWork.GetWriteRepository<Account>().AddAsync(account);
             await unitOfWork.SaveAsync();
-            return Unit.Value;
+            return true;
         }
     }
 }

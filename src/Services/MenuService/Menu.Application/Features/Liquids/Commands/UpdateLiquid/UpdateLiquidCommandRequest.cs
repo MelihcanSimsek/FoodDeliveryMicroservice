@@ -20,7 +20,7 @@ namespace Menu.Application.Features.Liquids.Commands.UpdateLiquid
         public Decimal Price { get; set; }
         public string? ImageUrl { get; set; }
         public int Milliliter { get; set; }
-        public string[] Roles => ["delivery.owner.restaurant"];
+        public string[] Roles => ["restaurantworker"];
         public string CacheRemoveKey => $"Liquid_{RestaurantId}_{BranchId}_*";
 
     }

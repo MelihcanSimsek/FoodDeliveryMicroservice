@@ -12,6 +12,6 @@ namespace CourierService.Application.Features.OrderItems.Commands.ChangeStatusTo
     {
         public Guid OrderNumber { get; set; }
         public string Message { get; set; }
-        public string[] Roles => ["delivery.owner.courier"];
+        public string[] Roles => ["courier"];
     }
 }

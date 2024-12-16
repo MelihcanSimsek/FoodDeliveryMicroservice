@@ -11,9 +11,9 @@ namespace OrderService.Api.Registrations
                 opt.SwaggerDoc("v1",
                     new OpenApiInfo()
                     {
-                        Title = "Restaurant Service",
+                        Title = "Order Service",
                         Version = "v1",
-                        Description = "This is a Restaurant Service API Documentation"
+                        Description = "This is a Order Service API Documentation"
                     });
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

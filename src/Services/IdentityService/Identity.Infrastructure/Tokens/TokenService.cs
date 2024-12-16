@@ -57,7 +57,7 @@ namespace Identity.Infrastructure.Tokens
                 ValidateAudience = false,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSettings.Secret)),
-                ValidateLifetime = false
+                ValidateLifetime = false,
             };
 
             JwtSecurityTokenHandler tokenHandler = new();

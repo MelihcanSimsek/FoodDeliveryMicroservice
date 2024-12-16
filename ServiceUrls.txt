@@ -6,6 +6,4 @@ Payment Service - http://localhost:5004
 Restaurant Service - http://localhost:5005
 Menu Service - http://localhost:5006
 Courier Service - http://localhost:5007
-
 RestaurantOrder Service - http://localhost:5008
-?CourierOrder Service - http://localhost:5009?

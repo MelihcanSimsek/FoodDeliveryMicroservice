@@ -13,6 +13,6 @@ namespace RestaurantOrderService.Application.Features.OrderItems.Commands.Change
         public Guid OrderNumber { get; set; }
         public string Message { get; set; }
 
-        public string[] Roles => ["delivery.owner.restaurant"];
+        public string[] Roles => ["restaurantworker"];
     }
 }
