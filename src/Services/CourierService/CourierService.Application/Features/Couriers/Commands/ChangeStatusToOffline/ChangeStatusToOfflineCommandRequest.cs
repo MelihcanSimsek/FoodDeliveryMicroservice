@@ -10,6 +10,6 @@ namespace CourierService.Application.Features.Couriers.Commands.ChangeStatusToOf
 {
     public class ChangeStatusToOfflineCommandRequest : IRequest<Unit>, ISecuredRequest
     {
-        public string[] Roles => ["delivery.owner.courier"];
+        public string[] Roles => ["courier"];
     }
 }

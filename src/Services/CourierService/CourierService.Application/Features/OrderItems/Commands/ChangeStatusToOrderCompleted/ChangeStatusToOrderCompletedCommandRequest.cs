@@ -11,6 +11,6 @@ namespace CourierService.Application.Features.OrderItems.Commands.ChangeStatusTo
     public class ChangeStatusToOrderCompletedCommandRequest : IRequest<Unit>, ISecuredRequest
     {
         public Guid OrderNumber { get; set; }
-        public string[] Roles => ["delivery.owner.courier"];
+        public string[] Roles => ["courier"];
     }
 }

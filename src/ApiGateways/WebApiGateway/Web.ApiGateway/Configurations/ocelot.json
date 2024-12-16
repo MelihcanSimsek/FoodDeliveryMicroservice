@@ -1,0 +1,146 @@
+{
+  "Routes": [
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "IdentityService",
+
+      "DownstreamPathTemplate": "/api/Auth/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Auth/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "BasketService",
+
+      "DownstreamPathTemplate": "/api/Basket/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Basket/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "CourierService",
+
+      "DownstreamPathTemplate": "/api/Courier/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Courier/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "CourierService",
+
+      "DownstreamPathTemplate": "/api/Delivery/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Delivery/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "MenuService",
+
+      "DownstreamPathTemplate": "/api/Liquid/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Menu/Liquid/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "MenuService",
+
+      "DownstreamPathTemplate": "/api/Meal/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Menu/Meal/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "OrderService",
+
+      "DownstreamPathTemplate": "/api/Order/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Order/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "PaymentService",
+
+      "DownstreamPathTemplate": "/api/Payment/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Payment/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "PaymentService",
+
+      "DownstreamPathTemplate": "/api/Account/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Account/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "RestaurantService",
+
+      "DownstreamPathTemplate": "/api/Branch/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Branch/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "RestaurantService",
+
+      "DownstreamPathTemplate": "/api/Restaurant/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/Restaurant/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "RestaurantOrderService",
+
+      "DownstreamPathTemplate": "/api/RestaurantOrder/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/RestaurantOrder/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    }
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000",
+    "ServiceDiscoveryProvider": {
+      //"Host": "c_consul",
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}

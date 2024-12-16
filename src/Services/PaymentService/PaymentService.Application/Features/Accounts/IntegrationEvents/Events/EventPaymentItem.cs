@@ -1,9 +1,14 @@
-﻿using BasketService.Domain.Enums;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BasketService.Application.Features.CustomerBaskets.IntegrationEvents.Events
+namespace PaymentService.Application.Features.Accounts.IntegrationEvents.Events
 {
-    public class EvenOrderItem
+    public class EventPaymentItem
     {
+        public Guid OrderNumber { get; set; }
         public Guid RestaurantId { get; set; }
         public Guid BranchId { get; set; }
         public string MenuName { get; set; }
@@ -14,8 +19,9 @@ namespace BasketService.Application.Features.CustomerBaskets.IntegrationEvents.E
         public string Address { get; set; }
         public string RestaurantAddress { get; set; }
 
-        public EvenOrderItem(Guid restaurantId, Guid branchId, string menuName, string type, decimal unitPrice, int quantity, string userEmail, string address, string restaurantAddress)
+        public EventPaymentItem(Guid orderNumber, Guid restaurantId, Guid branchId, string menuName, string type, decimal unitPrice, int quantity, string userEmail, string address, string restaurantAddress)
         {
+            OrderNumber = orderNumber;
             RestaurantId = restaurantId;
             BranchId = branchId;
             MenuName = menuName;
@@ -28,4 +34,3 @@ namespace BasketService.Application.Features.CustomerBaskets.IntegrationEvents.E
         }
     }
 }
-

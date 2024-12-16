@@ -5,6 +5,12 @@ using Identity.Application.Exceptions;
 using Identity.Application.Bases;
 using Identity.Application.Behaviours;
 using MediatR;
+using EventBus.Factory;
+using RabbitMQ.Client;
+using EventBus.Base.Abstraction;
+using EventBus.Base;
+
+
 
 namespace Identity.Application
 {
@@ -20,6 +26,8 @@ namespace Identity.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));
 
+            services.AddEventBus();
+
             return services;
         }
 
@@ -29,6 +37,24 @@ namespace Identity.Application
 
             foreach (var rule in rules)
                 services.AddTransient(rule);
+
+            return services;
+        }
+
+        private static IServiceCollection AddEventBus(this IServiceCollection services)
+        {
+            services.AddSingleton<IEventBus>(sp =>
+            {
+                EventBusConfig config = new()
+                {
+                    ConnectionRetryCount = 5,
+                    EventNameSuffix = "IntegrationEvent",
+                    SubscriberClientAppName = "IdentityService",
+                    EventBusType = EventBusType.RabbitMQ,
+                };
+
+                return EventBusFactory.Create(config, sp);
+            });
 
             return services;
         }

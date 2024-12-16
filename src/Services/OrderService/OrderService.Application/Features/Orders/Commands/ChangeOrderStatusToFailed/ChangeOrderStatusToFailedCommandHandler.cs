@@ -31,23 +31,10 @@ namespace OrderService.Application.Features.Orders.Commands.ChangeOrderStatusToF
             Order? order = await unitOfWork.GetReadRepository<Order>().GetAsync(p => p.OrderNumber == request.OrderNumber && p.Status == OrderStatus.ORDER_STARTED);
             await orderRules.ShouldOrderExists(order);
 
-            Order newOrder = new Order()
-            {
-                RestaurantId = order.RestaurantId,
-                BranchId = order.BranchId,
-                UserId = order.UserId,
-                MenuName = order.MenuName,
-                Quantity = order.Quantity,
-                OrderNumber = order.OrderNumber,
-                Status = OrderStatus.ORDER_FAILED,
-                RestaurantAddress = order.RestaurantAddress,
-                UnitPrice = order.UnitPrice,
-                UserEmail = order.UserEmail,
-                Address = order.Address,
-                FailMessage = request.FailMessage
-            };
+            order.Status = OrderStatus.ORDER_FAILED;
+            order.FailMessage = request.FailMessage;
 
-            await unitOfWork.GetWriteRepository<Order>().AddAsync(newOrder);
+            await unitOfWork.GetWriteRepository<Order>().UpdateAsync(order);
             await unitOfWork.SaveAsync();
 
             var notificationEvent = new NotificationEmailIntegrationEvent(order.UserEmail,

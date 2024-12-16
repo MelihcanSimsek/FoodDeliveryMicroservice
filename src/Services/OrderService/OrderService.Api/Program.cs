@@ -22,6 +22,7 @@ builder.Services.AddPersistenceRegistration(builder.Configuration);
 builder.Services.AddInfrastructureRegistration();
 
 builder.Services.AddAuthenticationRegistration(builder.Configuration);
+builder.Services.AddConsulRegistration(builder.Configuration);
 builder.Services.AddSwaggerRegistration();
 
 
@@ -37,6 +38,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.ConfigureCustomExceptionMiddleware();
 app.ConfigureCustomEventBus();
+app.RegisterWithConsul(app.Lifetime, builder.Configuration);
 app.UseAuthentication();
 app.UseAuthorization();
 

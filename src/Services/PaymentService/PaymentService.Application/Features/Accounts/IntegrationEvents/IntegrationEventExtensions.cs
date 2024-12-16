@@ -17,6 +17,7 @@ namespace PaymentService.Application.Features.Accounts.IntegrationEvents
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
+            eventBus.Subscribe<UserCreatedIntegrationEvent, UserCreatedIntegrationEventHandler>();
             eventBus.Subscribe<OrderCreatedIntegrationEvent, OrderCreatedIntegrationEventHandler>();
             eventBus.Subscribe<RestaurantRejectedIntegrationEvent, RestaurantRejectedIntegrationEventHandler>();
             eventBus.Subscribe<DeliveryFailedIntegrationEvent, DeliveryFailedIntegrationEventHandler>();

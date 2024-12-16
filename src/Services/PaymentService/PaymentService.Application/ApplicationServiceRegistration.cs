@@ -8,7 +8,6 @@ using PaymentService.Application.Behaviours;
 using EventBus.Factory;
 using EventBus.Base.Abstraction;
 using EventBus.Base;
-using RabbitMQ.Client;
 using PaymentService.Application.Features.Accounts.IntegrationEvents.EventHandlers;
 
 namespace PaymentService.Application
@@ -56,6 +55,7 @@ namespace PaymentService.Application
                 return EventBusFactory.Create(config, sp);
             });
 
+            services.AddTransient<UserCreatedIntegrationEventHandler>();
             services.AddTransient<OrderCreatedIntegrationEventHandler>();
             services.AddTransient<RestaurantRejectedIntegrationEventHandler>();
             services.AddTransient<DeliveryFailedIntegrationEventHandler>();

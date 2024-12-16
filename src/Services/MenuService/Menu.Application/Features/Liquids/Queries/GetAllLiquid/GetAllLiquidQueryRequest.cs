@@ -16,9 +16,7 @@ namespace Menu.Application.Features.Liquids.Queries.GetAllLiquid
         public int Size { get; set; }
         public int Page { get; set; }
         public string[] roles => ["user"];
-
         public string CacheKey => $"Liquid_{RestaurantId}_{BranchId}_Page_{Page}_Size_{Size}";
-
         public double CacheTime => 30;
     }
 }

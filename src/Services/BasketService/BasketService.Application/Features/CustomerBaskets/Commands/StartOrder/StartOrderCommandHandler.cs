@@ -35,20 +35,19 @@ namespace BasketService.Application.Features.CustomerBaskets.Commands.StartOrder
             CustomerBasket customerBasket = await customerBasketRepository.GetBasketAsync(userId.ToString());
             IList<BasketItem> basketItems = customerBasket.BasketItems;
             await customerBasketRules.ShouldBasketItemsExists(basketItems);
-
-            List<EvenOrderItem> eventItem = new List<EvenOrderItem>();
+            List<EventOrderItem> eventOrderItems = new List<EventOrderItem>();
 
             foreach (var item in basketItems)
             {
-                eventItem.Add(new EvenOrderItem(item.RestaurantId, item.BranchId,
-                    item.MenuName, item.Type.ToString(), item.UnitPrice, item.Quantity, request.UserEmail, request.Address, request.RestaurantAddress));
-
+                eventOrderItems.Add(new EventOrderItem(item.RestaurantId, item.BranchId,
+                    item.MenuName, item.Type.ToString(), item.UnitPrice, item.Quantity,
+                    request.UserEmail, request.Address, request.RestaurantAddress));
             }
 
-            var orderCreatedEvent = new OrderStartedIntegrationEvent(userId, eventItem);
+            var orderStartedEvent = new OrderStartedIntegrationEvent(userId, eventOrderItems);
+            eventBus.Publish(orderStartedEvent);
 
             await customerBasketRepository.DeleteBasketAsync(userId.ToString());
-            eventBus.Publish(orderCreatedEvent);
 
             return Unit.Value;
         }

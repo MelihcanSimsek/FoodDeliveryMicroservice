@@ -11,6 +11,7 @@ namespace Restaurant.Application.Features.Restaurants.Commands.RestaurantCreate
         public string PhoneContact { get; set; }
         public string Country { get; set; }
 
-        public string[] Roles => ["delivery.admin.restaurant"];
+        public string[] Roles => ["restaurantadmin"];
+
     }
 }

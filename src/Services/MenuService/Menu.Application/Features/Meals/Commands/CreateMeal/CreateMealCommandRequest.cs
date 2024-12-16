@@ -19,7 +19,7 @@ namespace Menu.Application.Features.Meals.Commands.CreateMeal
         public string? ImageUrl { get; set; }
         public int? Portion { get; set; }
         public int Gram { get; set; }
-        public string[] Roles => ["delivery.owner.restaurant"];
+        public string[] Roles => ["restaurantworker"];
         public string CacheRemoveKey => $"Meal_{RestaurantId}_{BranchId}_*";
 
     }

@@ -10,7 +10,7 @@ namespace Menu.Application.Features.Meals.Queries.GetAllMeal
     public class GetAllMealQueryResponse
     {
         public Guid Id { get; set; }
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+        public DateTime CreationDate { get; set; }
         public bool IsDeleted { get; set; }
         public Guid RestaurantId { get; set; } 
         public Guid BranchId { get; set; } 

@@ -20,6 +20,7 @@ namespace Restaurant.Application.Behaviours
         {
             IList<string> roles = httpContextAccessor.HttpContext.User.ClaimRoles();
 
+
             if (roles is null) throw new AuthorizationException("Role not found");
 
             bool userHaveRole = roles.FirstOrDefault(roleClaim => request.Roles.Any(role => role == roleClaim)) is not null;

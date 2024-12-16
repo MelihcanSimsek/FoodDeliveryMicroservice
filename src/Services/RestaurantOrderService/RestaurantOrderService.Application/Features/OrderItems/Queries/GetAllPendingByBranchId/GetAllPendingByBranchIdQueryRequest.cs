@@ -11,6 +11,6 @@ namespace RestaurantOrderService.Application.Features.OrderItems.Queries.GetAllP
     public class GetAllPendingByBranchIdQueryRequest : ISecuredRequest, IRequest<IList<GetAllPendingByBranchIdQueryResponse>>
     {
         public Guid BranchId { get; set; }
-        public string[] Roles => ["delivery.owner.restaurant"];
+        public string[] Roles => ["restaurantworker"];
     }
 }

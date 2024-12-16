@@ -16,6 +16,6 @@ namespace Restaurant.Application.Features.Branches.Commands.BranchCreate
         public string Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string[] Roles => ["delivery.owner.restaurant"];
+        public string[] Roles => ["restaurantadmin"];
     }
 }

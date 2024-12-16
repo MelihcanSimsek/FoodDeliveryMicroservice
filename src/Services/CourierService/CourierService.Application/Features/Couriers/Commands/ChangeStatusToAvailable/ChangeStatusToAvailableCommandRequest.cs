@@ -10,6 +10,6 @@ namespace CourierService.Application.Features.Couriers.Commands.ChangeStatusToAv
 {
     public class ChangeStatusToAvailableCommandRequest : IRequest<Unit>,ISecuredRequest
     {
-        public string[] Roles => ["delivery.owner.courier"];
+        public string[] Roles => ["courier"];
     }
 }

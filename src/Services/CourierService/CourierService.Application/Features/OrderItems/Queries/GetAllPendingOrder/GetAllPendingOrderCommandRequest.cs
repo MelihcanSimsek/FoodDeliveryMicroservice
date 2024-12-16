@@ -10,6 +10,6 @@ namespace CourierService.Application.Features.OrderItems.Queries.GetAllPendingOr
 {
     public class GetAllPendingOrderCommandRequest : ISecuredRequest, IRequest<IList<GetAllPendingOrderCommandResponse>>
     {
-        public string[] Roles => ["delivery.owner.courier"];
+        public string[] Roles => ["courier"];
     }
 }

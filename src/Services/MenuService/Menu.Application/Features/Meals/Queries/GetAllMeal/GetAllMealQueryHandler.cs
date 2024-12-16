@@ -22,7 +22,8 @@ namespace Menu.Application.Features.Meals.Queries.GetAllMeal
 
         public async Task<IList<GetAllMealQueryResponse>> Handle(GetAllMealQueryRequest request, CancellationToken cancellationToken)
         {
-            IList<Meal> mealList = await mealRepository.GetAllByPagingAsync(predicate: p => p.RestaurantId == request.RestaurantId, currentPage: request.Page, pageSize: request.Size);
+            IList<Meal> mealList = await mealRepository.GetAllByPagingAsync(predicate: p => p.RestaurantId == request.RestaurantId && p.BranchId == request.BranchId,
+               currentPage: request.Page, pageSize: request.Size);
             var response = mapper.Map<GetAllMealQueryResponse, Meal>(mealList);
             return response;
         }
