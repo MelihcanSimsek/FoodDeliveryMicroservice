@@ -1,0 +1,266 @@
+services:
+  web.apigateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - net_apigateway
+      - net_backendservices
+
+  identity.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5001
+      - ConsulConfig__Address=http://consul-server:8500
+      - ConsulConfig__ServiceAddress=http://c_identityservice:5001
+      - ConsulConfig__ServiceName=IdentityService
+      - ConsulConfig__ServiceId=Identity
+    ports:
+      - "5001:5001"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - net_backendservices
+    depends_on:
+      - web.apigateway
+      - mssql-server
+      - consul-server
+      - rabbitmq-server
+
+  courierservice.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5007
+      - ConsulConfig__Address=http://consul-server:8500
+      - ConsulConfig__ServiceAddress=http://c_courierservice:5007
+      - ConsulConfig__ServiceName=CourierService
+      - ConsulConfig__ServiceId=Courier
+    ports:
+      - "5007:5007"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - net_backendservices
+    depends_on:
+      - web.apigateway
+      - postgresql-server
+      - consul-server
+      - rabbitmq-server
+
+  basketservice.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5002
+      - ConsulConfig__Address=http://consul-server:8500
+      - ConsulConfig__ServiceAddress=http://c_basketservice:5002
+      - ConsulConfig__ServiceName=BasketService
+      - ConsulConfig__ServiceId=Basket
+    ports:
+      - "5002:5002"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - net_backendservices
+    depends_on:
+      - web.apigateway
+      - redis-server
+      - consul-server
+      - rabbitmq-server
+
+  menu.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5006
+      - ConsulConfig__Address=http://consul-server:8500
+      - ConsulConfig__ServiceAddress=http://c_menuservice:5006
+      - ConsulConfig__ServiceName=MenuService
+      - ConsulConfig__ServiceId=Menu
+    ports:
+      - "5006:5006"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - net_backendservices
+    depends_on:
+      - web.apigateway
+      - mongodb-server
+      - redis-server
+      - consul-server
+
+  orderservice.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5003
+      - ConsulConfig__Address=http://consul-server:8500
+      - ConsulConfig__ServiceAddress=http://c_orderservice:5003
+      - ConsulConfig__ServiceName=OrderService
+      - ConsulConfig__ServiceId=Order
+    ports:
+      - "5003:5003"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - net_backendservices
+    depends_on:
+      - web.apigateway
+      - mssql-server
+      - consul-server
+      - rabbitmq-server
+
+  paymentservice.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5004
+      - ConsulConfig__Address=http://consul-server:8500
+      - ConsulConfig__ServiceAddress=http://c_paymentservice:5004
+      - ConsulConfig__ServiceName=PaymentService
+      - ConsulConfig__ServiceId=Payment
+    ports:
+      - "5004:5004"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - net_backendservices
+    depends_on:
+      - web.apigateway
+      - mssql-server
+      - consul-server
+      - rabbitmq-server
+
+  restaurantorderservice.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5008
+      - ConsulConfig__Address=http://consul-server:8500
+      - ConsulConfig__ServiceAddress=http://c_restaurantorderservice:5008
+      - ConsulConfig__ServiceName=RestaurantOrderService
+      - ConsulConfig__ServiceId=RestaurantOrder
+    ports:
+      - "5008:5008"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - net_backendservices
+    depends_on:
+      - web.apigateway
+      - mssql-server
+      - consul-server
+      - rabbitmq-server
+
+  restaurant.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5005
+      - ConsulConfig__Address=http://consul-server:8500
+      - ConsulConfig__ServiceAddress=http://c_restaurantservice:5005
+      - ConsulConfig__ServiceName=RestaurantService
+      - ConsulConfig__ServiceId=Restaurant
+    ports:
+      - "5005:5005"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - net_backendservices
+    depends_on:
+      - web.apigateway
+      - mssql-server
+      - consul-server
+  notificationservice.console:
+    networks:
+      - net_backendservices
+    depends_on:
+      - web.apigateway
+      - rabbitmq-server
+
+
+
+  consul-server:
+    ports:
+      - 8500:8500
+      - 8600:8600/tcp
+      - 8600:8600/udp
+    networks:
+      - net_apigateway
+      - net_backendservices
+
+  mssql-server:
+    user: root
+    ports:
+      - 1432:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MySecurePass!2024
+    volumes:
+      - mssql_data:/var/opt/mssql/data
+      - mssql_log:/var/opt/mssql/log
+      - mssql_secrets:/var/opt/mssql/secrets
+    networks:
+      - net_backendservices
+
+  rabbitmq-server:
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - net_backendservices
+      - net_apigateway
+
+  redis-server:
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    networks:
+      - net_backendservices
+
+  mongodb-server:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - net_backendservices
+
+  postgresql-server:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+    networks:
+      - net_backendservices
+
+networks:
+  net_backendservices:
+    driver: bridge
+  net_apigateway:
+    driver: bridge
+
+volumes:
+  mssql_data:
+  mssql_log:
+  mssql_secrets:
+  rabbitmq_data:
+  redis_data:
+  mongodb_data:
+  postgresql_data:

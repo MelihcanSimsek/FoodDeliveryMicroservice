@@ -1,6 +1,7 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
+using Web.ApiGateway.Registrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ builder.Configuration.SetBasePath(env.ContentRootPath)
     .AddJsonFile("Configurations/ocelot.json")
     .AddEnvironmentVariables();
 
-builder.Services.AddOcelot();
+builder.Services.AddOcelot().AddConsul<ConsulServiceBuilder>();
 
 var app = builder.Build();
 

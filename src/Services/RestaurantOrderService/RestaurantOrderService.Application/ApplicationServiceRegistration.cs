@@ -50,6 +50,10 @@ namespace RestaurantOrderService.Application
                     EventNameSuffix = "IntegrationEvent",
                     SubscriberClientAppName = "RestaurantOrderService",
                     EventBusType = EventBusType.RabbitMQ,
+                    Connection = new ConnectionFactory()
+                    {
+                        HostName = "c_rabbitmq"
+                    }
                 };
 
                 return EventBusFactory.Create(config, sp);

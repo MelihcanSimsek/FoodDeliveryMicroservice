@@ -1,0 +1,105 @@
+services:
+  web.apigateway:
+    container_name: "c_apigateway"
+    image: ${DOCKER_REGISTRY-}webapigateway
+    build:
+      context: .
+      dockerfile: src/ApiGateways/WebApiGateway/Web.ApiGateway/Dockerfile
+
+  identity.api:
+    container_name: "c_identityservice"
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: .
+      dockerfile: src/Services/IdentityService/Identity.Api/Dockerfile
+
+  courierservice.api:
+    container_name: "c_courierservice"
+    image: ${DOCKER_REGISTRY-}courierserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/CourierService/CourierService.Api/Dockerfile
+
+
+  basketservice.api:
+    container_name: "c_basketservice"
+    image: ${DOCKER_REGISTRY-}basketserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/BasketService/BasketService.Api/Dockerfile
+
+
+  menu.api:
+    container_name: "c_menuservice"
+    image: ${DOCKER_REGISTRY-}menuapi
+    build:
+      context: .
+      dockerfile: src/Services/MenuService/Menu.Api/Dockerfile
+
+
+  notificationservice.console:
+    container_name: "c_notificationservice"
+    image: ${DOCKER_REGISTRY-}notificationserviceconsole
+    build:
+      context: .
+      dockerfile: src/Services/NotificationService/NotificationService.Console/Dockerfile
+
+
+  orderservice.api:
+    container_name: "c_orderservice"
+    image: ${DOCKER_REGISTRY-}orderserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/OrderService/OrderService.Api/Dockerfile
+
+
+  paymentservice.api:
+    container_name: "c_paymentservice"
+    image: ${DOCKER_REGISTRY-}paymentserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/PaymentService/PaymentService.Api/Dockerfile
+
+
+  restaurantorderservice.api:
+    container_name: "c_restaurantorderservice"
+    image: ${DOCKER_REGISTRY-}restaurantorderserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/RestaurantOrderService/RestaurantOrderService.Api/Dockerfile
+
+
+  restaurant.api:
+    container_name: "c_restaurantservice"
+    image: ${DOCKER_REGISTRY-}restaurantapi
+    build:
+      context: .
+      dockerfile: src/Services/RestaurantService/Restaurant.Api/Dockerfile
+
+
+
+     
+  redis-server:
+    container_name: c_redis
+    image: redis
+
+  rabbitmq-server:
+    container_name: c_rabbitmq
+    image: rabbitmq:3-management
+
+  consul-server:
+    container_name: c_consul
+    image: hashicorp/consul
+
+  postgresql-server:
+    container_name: c_postgresql
+    image: postgres:latest
+
+  mongodb-server:
+    container_name: c_mongodb
+    image: mongo:latest
+
+  mssql-server:
+    container_name: c_sqlserver
+    image: mcr.microsoft.com/mssql/server:2022-latest
+

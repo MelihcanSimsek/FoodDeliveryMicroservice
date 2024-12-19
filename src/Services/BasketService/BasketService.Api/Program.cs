@@ -23,6 +23,8 @@ builder.Services.AddAuthenticationRegistration(builder.Configuration);
 builder.Services.AddConsulRegistration(builder.Configuration);
 builder.Services.AddSwaggerRegistration();
 
+builder.Configuration
+    .AddEnvironmentVariables();
 
 var app = builder.Build();
 

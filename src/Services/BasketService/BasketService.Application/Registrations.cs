@@ -35,6 +35,10 @@ namespace BasketService.Application
                     EventNameSuffix = "IntegrationEvent",
                     SubscriberClientAppName = "BasketService",
                     EventBusType = EventBusType.RabbitMQ,
+                    Connection = new ConnectionFactory()
+                    {
+                        HostName = "c_rabbitmq"
+                    }
                 };
 
                 return EventBusFactory.Create(config, sp);
