@@ -28,7 +28,7 @@ namespace Identity.Api.Registrations
             {
                 ID = serviceId,
                 Name = serviceName,
-                Address = "localhost",
+                Address = $"{uri.Host}",
                 Port = uri.Port,
                 Tags = new[] { serviceName, serviceId },
             };

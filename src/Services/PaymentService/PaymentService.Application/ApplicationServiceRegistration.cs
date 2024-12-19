@@ -9,6 +9,7 @@ using EventBus.Factory;
 using EventBus.Base.Abstraction;
 using EventBus.Base;
 using PaymentService.Application.Features.Accounts.IntegrationEvents.EventHandlers;
+using RabbitMQ.Client;
 
 namespace PaymentService.Application
 {
@@ -50,6 +51,10 @@ namespace PaymentService.Application
                     EventNameSuffix = "IntegrationEvent",
                     SubscriberClientAppName = "PaymentService",
                     EventBusType = EventBusType.RabbitMQ,
+                    Connection = new ConnectionFactory()
+                    {
+                        HostName = "c_rabbitmq"
+                    }
                 };
 
                 return EventBusFactory.Create(config, sp);

@@ -51,6 +51,10 @@ namespace Identity.Application
                     EventNameSuffix = "IntegrationEvent",
                     SubscriberClientAppName = "IdentityService",
                     EventBusType = EventBusType.RabbitMQ,
+                    Connection = new ConnectionFactory()
+                    {
+                        HostName = "c_rabbitmq"
+                    }
                 };
 
                 return EventBusFactory.Create(config, sp);

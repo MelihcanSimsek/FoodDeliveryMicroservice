@@ -5,7 +5,7 @@ using NotificationService.Infrastructure.IntegrationEvents.Events;
 using NotificationService.Infrastructure.IntegrationEvents.EventHandlers;
 
 Console.WriteLine("------------ Starting Notification Service Be Ready Right Now ------------");
-ServiceCollection services = new ServiceCollection();
+IServiceCollection services = new ServiceCollection();
 
 services.AddInfrastructureRegistration();
 
