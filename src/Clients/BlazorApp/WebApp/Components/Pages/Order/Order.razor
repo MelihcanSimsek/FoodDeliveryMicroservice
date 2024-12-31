@@ -1,0 +1,43 @@
+﻿@layout MainLayout
+@page "/orders"
+@rendermode InteractiveServer
+
+<div class="main-order-content">
+    <div class="orders">
+        <table >
+            <tr class="order-table-header">
+                <th>Order Number</th>
+                <th>Restaurant Name</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Changed Time</th>
+            </tr>
+            @for (int i = 0; i < 10; i++)
+            {
+                <tr class="order-table-row">
+                    <td>@OrderNumber</td>
+                    <td>Billgates Restoranları</td>
+                    <td>Order Completed</td>
+                    <td>Liquid</td>
+                    <td>Coffee</td>
+                    <td>2</td>
+                    <td>4$</td>
+                    <td>@(DateTime.Now.Date)</td>
+                </tr>
+            }
+        </table>
+
+    </div>
+    <div class="page-footer">
+        <span class="page-text">Previous</span>
+        <span>5/10</span>
+        <span class="page-text">Next</span>
+    </div>
+</div>
+
+@code {
+    public Guid OrderNumber { get; set; } = Guid.NewGuid();
+}

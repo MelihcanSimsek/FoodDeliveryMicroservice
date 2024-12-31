@@ -1,0 +1,34 @@
+﻿@rendermode InteractiveServer
+
+<div class="pending-order">
+    <div class="pending-order-header">
+        <div class="pending-order-header-left">
+            <span>OrderNumber</span>
+            <span>Name</span>
+            <span>Quantity</span>
+            <span>Price</span>
+            <span>Date</span>
+        </div>
+        <div class="pending-order-header-right">
+        </div>
+    </div>
+    @for (int i = 0; i < 10; i++)
+    {
+        <div class="order-details">
+            <div class="detail">
+                <span>@(Guid.NewGuid().ToString().Replace("-","").Substring(0,13))</span>
+                <span>Coffee</span>
+                <span>2</span>
+                <span>&emsp; 4$</span>
+                <span>@(DateTime.Now.ToString("dd/M/yyyy"))</span>
+            </div>
+            <div class="order-buttons">
+                <button type="button" class="btn btn-primary btn-lg">Accept</button>
+                <button type="button" class="btn btn-warning btn-lg">Reject</button>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+}

@@ -1,0 +1,45 @@
+﻿@layout LoginLayout
+@page "/login"
+@rendermode InteractiveServer
+@using WebApp.Services.Abstracts
+@inject IIdentityService IdentityService
+@inject NavigationManager NavManager
+
+<div class="login-clean">
+    <EditForm Model="LoginRequest" FormName="loginForm" OnValidSubmit="Submit" class="login-form px-4">
+        <h2 class="sr-only">Login to Food Delivery</h2>
+        <div class="illustration">
+            <i class="icon ion-ios-navigate"></i>
+        </div>
+        <DataAnnotationsValidator />
+        <div class="form-group py-2">
+            <InputText @bind-Value="LoginRequest.Email" class="form-control" type="email" name="email" placeholder="Email" />
+            <ValidationMessage For="@(() => LoginRequest.Email)" />
+        </div>
+        <div class="form-group py-2">
+            <InputText @bind-Value="LoginRequest.Password" class="form-control" type="password" name="password" placeholder="Password" />
+            <ValidationMessage For="@(() => LoginRequest.Password)" />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Login</button>
+        </div><a href="/register" class="forgot">You dont have an account? Sign up.</a>
+    </EditForm>
+</div>
+
+
+@code {
+
+    private LoginRequest LoginRequest { get; set; } = new();
+
+    private void Submit()
+    {
+        if (LoginRequest is not null)
+        {
+            var response = IdentityService.Login(LoginRequest);
+            if (response is not null)
+            {
+                NavManager.NavigateTo("/");
+            }
+        }
+    }
+}

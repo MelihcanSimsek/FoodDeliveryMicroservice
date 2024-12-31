@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
+
+<AuthorizeView>
+    <Authorized>
+        <NavMenu />
+        <div class="main font-other bg-primary-color-light dark:bg-secondary-color-extra-dark">
+            @Body
+        </div>
+
+    </Authorized>
+    <NotAuthorized>
+        <div class="not-authorized-container">
+            <h3>You are not authorized.. Please <a href="/login">login</a> !</h3>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>

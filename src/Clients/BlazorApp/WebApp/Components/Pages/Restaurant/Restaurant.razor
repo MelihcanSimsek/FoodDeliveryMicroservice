@@ -1,0 +1,88 @@
+﻿@layout MainLayout
+@page "/restaurants"
+@rendermode InteractiveServer
+
+<div class="main-content">
+    <div class="left">
+        <div class="sidebar">
+            <EditForm Model="RestaurantQueryRequest" OnSubmit="Submit" class="sidebar-form">
+                <div class="form-group">
+                    <InputText @bind-Value="RestaurantQueryRequest.Name" class="form-control" placeholder="Restaurant name" />
+                </div>
+
+                <div class="form-group">
+                    <InputSelect @bind-Value="RestaurantQueryRequest.Country" class="form-control">
+                        <option value="">Select Country ...</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="U.S.A">U.S.A</option>
+                        <option value="Germany">Germany</option>
+                    </InputSelect>
+                </div>
+
+                <div class="form-group">
+                    <InputSelect @bind-Value="RestaurantQueryRequest.City" class="form-control">
+                        <option value="">Select City ...</option>
+                        <option value="Istanbul">İstanbul</option>
+                        <option value="Texas">Texas</option>
+                        <option value="Berlin">Berlin</option>
+                    </InputSelect>
+                </div>
+
+                <div class="form-group">
+                    <label for="priceRange">Price Range: 1 - @MaxPrice</label>
+                    <div>
+                        <input type="range" id="maxPrice" @bind="MaxPrice" min="1" max="1000" step="10" class="form-range" />
+                    </div>
+                </div>
+                <div class="btn-form">
+                    <button type="submit" class="btn btn-primary btn-lg mt-3">Filter</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+    <div class="middle">
+        <div class="restaurant-content">
+
+            <div class="restaurant">
+                <table>
+                    <tr>
+                        <th class="table-header">Restaurant Name</th>
+                        <th class="table-header">Country</th>
+                        <th class="table-header">City</th>
+                        <th class="table-header">Score</th>
+                    </tr>
+                    @for (int i = 0; i < 10; i++)
+                    {
+                        <tr class="table-data">
+                            <td>Billgates Lokantaları</td>
+                            <td>Türkiye</td>
+                            <td>İstanbul</td>
+                            <td>4.5/5 &#9733;</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+
+        <div class="page-footer">
+            <span class="page-text">Previous</span>
+            <span>5/10</span>
+            <span class="page-text">Next</span>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RestaurantQueryRequest RestaurantQueryRequest { get; set; } = new();
+    private decimal MinPrice { get; set; } = 0;
+    private decimal MaxPrice { get; set; } = 1000;
+
+    private void Submit()
+    {
+        if(RestaurantQueryRequest is not null)
+        {
+            
+        }
+    }
+}

@@ -1,0 +1,17 @@
+﻿@page "/logout"
+@using WebApp.Services.Abstracts
+@rendermode InteractiveServer
+@inject IIdentityService IdentityService
+@inject NavigationManager NavManager
+
+<h3>Logout</h3>
+
+@code {
+    protected override Task OnInitializedAsync()
+    {
+        IdentityService.Logout();
+        NavManager.NavigateTo("/login");
+
+        return Task.CompletedTask;
+    }
+}

@@ -1,0 +1,74 @@
+﻿@rendermode InteractiveServer
+
+<div class="main-branch-content">
+    <table>
+        <thead>
+            <tr class="table-header">
+                <th>Branch ID</th>
+                <th>City</th>
+                <th>District</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < 10; i++)
+            {
+                <tr class="table-body">
+                    <td>@(Guid.NewGuid())</td>
+                    <td>İstanbul</td>
+                    <td>Maltepe</td>
+                    <td>Başıbüyük, spor tesisi no 34/35</td>
+                    <td>maltepegates@gmail.com</td>
+                    <td>+905556724351</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (IsAddFormActive)
+    {
+        <EditForm Model="IsAddFormActive" OnSubmit="Submit">
+            <table>
+                <tr class="table-footer-form">
+                </tr>
+            </table>
+        </EditForm>
+    }
+    else
+    {
+        <table onclick="@(()=> ChangeFormActiveState())">
+            <tr class="table-footer-button">
+                <td>&#8594;</td>
+                <td>Add</td>
+                <td>New</td>
+                <td>Branch</td>
+                <td>Item</td>
+                <td>&#8592</td>
+            </tr>
+        </table>
+    }
+    <div class="page-footer">
+        <div class="page-footer-content">
+            <span class="page-footer-text">Previous</span>
+            <span>1/10</span>
+            <span class="page-footer-text">Next</span>
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool IsAddFormActive { get; set; } = false;
+    private Guid BranchId { get; set; }
+
+    private void Submit()
+    {
+
+    }
+
+    private void ChangeFormActiveState()
+    {
+        IsAddFormActive = !IsAddFormActive;
+    }
+}

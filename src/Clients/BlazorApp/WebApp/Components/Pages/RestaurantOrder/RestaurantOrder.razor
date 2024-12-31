@@ -1,0 +1,55 @@
+﻿@layout MainLayout
+@page "/rdashboard"
+@using Microsoft.AspNetCore.Authorization
+@* @attribute [Authorize(Roles = "admin,restaurantadmin,restaurantworker")] *@
+@rendermode InteractiveServer
+
+<div class="main-restaurant-order-content">
+    <div class="left">
+        <div class="sidebar">
+            <button type="button" class="btn btn-primary" onclick="@(()=> ChangeComponentValue(1))">Pending Orders</button>
+            <button type="button" class="btn btn-primary" onclick="@(()=> ChangeComponentValue(2))">Accepted Orders</button>
+            <button type="button" class="btn btn-primary" onclick="@(()=> ChangeComponentValue(3))">Menus</button>
+            <button type="button" class="btn btn-primary" onclick="@(()=> ChangeComponentValue(4))">Branchs</button>
+            <button type="button" class="btn btn-primary" onclick="@(()=> ChangeComponentValue(5))">Restaurant</button>
+        </div>
+    </div>
+    <div class="middle">
+        @if(ComponentValue == 3){
+            <MenuBranch />
+        }
+        else if (ComponentValue == 1)
+        {
+           <PendingOrder />
+
+        }
+        else if (ComponentValue == 2)
+        {
+            <AcceptedOrder />
+
+        }
+        else if (ComponentValue == 4)
+        {
+            <Branch />
+        }
+        else if (ComponentValue == 5)
+        {
+            <RestaurantComponent />
+        }
+    </div>
+</div>
+
+
+@code {
+    private int ComponentValue { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ComponentValue = 1;
+    }
+
+    private void ChangeComponentValue(int componentValue)
+    {
+        this.ComponentValue = componentValue;
+    }
+}
