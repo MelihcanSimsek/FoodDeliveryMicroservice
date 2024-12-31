@@ -34,6 +34,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.Services.MigrateDatabase();
 app.ConfigureCustomExceptionMiddleware();
 app.RegisterWithConsul(app.Lifetime, builder.Configuration);
 app.UseAuthentication();

@@ -38,6 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.Services.MigrateDatabase();
 app.ConfigureCustomExceptionMiddleware();
 app.ConfigureCustomEventBus();
 app.RegisterWithConsul(app.Lifetime, builder.Configuration);

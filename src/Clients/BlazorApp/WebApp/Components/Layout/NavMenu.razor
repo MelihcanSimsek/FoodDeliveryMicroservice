@@ -1,0 +1,85 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@rendermode InteractiveServer
+
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <div class="container-fluid justify-content-between px-5">
+        <div class="d-flex">
+            <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="/">
+                <span class="navbar-brand-text">FoodDelivery</span>
+            </a>
+        </div>
+
+        <ul class="navbar-nav flex-row d-none d-md-flex">
+            <li class="nav-item me-3 me-lg-1 active">
+                <a class="nav-link" href="/restaurants">
+                    <span>Restaurants</span>
+                </a>
+            </li>
+            <li class="nav-item me-3 me-lg-1 active">
+                <a class="nav-link" href="/orders">
+                    <span>Orders</span>
+                </a>
+            </li>
+            <AuthorizeView Roles="admin,restaurantadmin,restaurantworker">
+                <li class="nav-item me-3 me-lg-1 active">
+                    <a class="nav-link" href="/rdashboard">
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            </AuthorizeView>
+           
+            <AuthorizeView Roles="admin,courier">
+                <li class="nav-item me-3 me-lg-1 active">
+                    <a class="nav-link" href="/cdashboard">
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            </AuthorizeView>
+
+           
+        </ul>
+
+        <div class="dropdown">
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow"
+               
+               role="button"
+               aria-expanded="@IsDropdownOpen"
+               @onclick="ToggleDropdown">
+                <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                     class="rounded-circle"
+                     height="50"
+                     alt="Black and White Portrait of a Man"
+                     loading="lazy" />
+            </a>
+            <AuthorizeView>
+                <Authorized>
+                    <ul class="dropdown-menu dropdown-menu-end @DropdownClass">
+                        <li>
+                            <span class="dropdown-item">@context.User.Identity?.Name</span>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">My Profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Settings</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                </Authorized>
+            </AuthorizeView>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private bool IsDropdownOpen = false;
+
+    private string DropdownClass => IsDropdownOpen ? "show" : "";
+
+    private void ToggleDropdown()
+    {
+        IsDropdownOpen = !IsDropdownOpen;
+    }
+}

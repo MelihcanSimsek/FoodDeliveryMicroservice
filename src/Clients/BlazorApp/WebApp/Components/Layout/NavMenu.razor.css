@@ -1,0 +1,18 @@
+﻿.navbar {
+    background-color: #ea6036;
+    position: sticky;
+}
+
+.navbar-brand-text{
+    font-weight:500;
+    font-size:1.5rem;
+}
+
+.dropdown-menu {
+    max-width: 100vw; /* Ekranın genişliğini geçmesin */
+    overflow-x: auto; /* Gerekirse yatay kaydırma ekle */
+}
+
+.nav-link span{
+    color: #2c263f;
+}

@@ -36,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
+app.Services.MigrateDatabase();
 app.ConfigureCustomExceptionMiddleware();
 app.RegisterWithConsul(app.Lifetime, app.Configuration);
 app.ConfigureCustomEventBus();

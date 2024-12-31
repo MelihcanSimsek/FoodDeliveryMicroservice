@@ -1,0 +1,53 @@
+﻿@layout LoginLayout
+@page "/register"
+@using WebApp.Services.Abstracts
+@rendermode InteractiveServer
+@inject NavigationManager NavManager
+@inject IIdentityService IdentityService
+
+<div class="login-clean">
+    <EditForm Model="RegisterRequest" FormName="RegisterForm" OnValidSubmit="Submit" class="register-form px-4">
+        <h2 class="sr-only">Register to Food Delivery</h2>
+        <div class="illustration">
+            <i class="icon ion-ios-navigate"></i>
+        </div>
+        <DataAnnotationsValidator />
+        <div class="form-group py-2">
+            <InputText @bind-Value="RegisterRequest.FullName" class="form-control" name="fullname" placeholder="Fullname" />
+            <ValidationMessage For="@(() => RegisterRequest.FullName)" />
+        </div>
+        <div class="form-group py-2">
+            <InputText @bind-Value="RegisterRequest.Email" class="form-control" type="email" name="email" placeholder="Email" />
+            <ValidationMessage For="@(() => RegisterRequest.Email)" />
+        </div>
+        <div class="form-group py-2">
+            <InputText @bind-Value="RegisterRequest.Password" class="form-control" type="password" name="password" placeholder="Password" />
+            <ValidationMessage For="@(() => RegisterRequest.Password)" />
+        </div>
+        <div class="form-group py-2">
+            <InputText @bind-Value="RegisterRequest.ConfirmPassword" class="form-control" type="password" name="confirm" placeholder="Confirm Password" />
+            <ValidationMessage For="@(() => RegisterRequest.ConfirmPassword)" />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Register</button>
+        </div><a href="/login" class="forgot">Have you an account? Please login.</a>
+    </EditForm>
+</div>
+
+@code {
+    private RegisterRequest RegisterRequest { get; set; } = new();
+
+    private void Submit()
+    {
+        if (RegisterRequest is not null)
+        {
+            var response =  IdentityService.Register(RegisterRequest);
+            if(response is not null)
+            {
+                NavManager.NavigateTo("/login");
+            }
+        }
+    }
+}
+
+
